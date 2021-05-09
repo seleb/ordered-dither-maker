@@ -52,7 +52,7 @@ function App() {
 					}}
 				/>
 				<label htmlFor="layer">layer:</label>
-				<input id="layer" type="range" min={0} max={layers - 1} step={1} value={layer} data-value={layer} onChange={useRange(setLayer)} />
+				<input id="layer" type="range" min={0} max={layers - 1} step={1} value={layer} data-value={layer + 1} onChange={useRange(setLayer)} />
 			</main>
 			<footer>v{pkg.version}</footer>
 		</>
