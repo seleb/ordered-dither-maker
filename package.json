@@ -1,0 +1,41 @@
+{
+  "name": "ordered-dither-maker",
+  "version": "0.1.0",
+  "description": "tool for creating ordered dither threshold textures",
+  "main": "index.js",
+  "scripts": {
+  },
+  "author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
+  "license": "MIT",
+  "repository": "github:seleb/ordered-dither-maker",
+  "devDependencies": {
+  },
+  "dependencies": {
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      [
+        "@semantic-release/npm",
+        {
+          "npmPublish": false
+        }
+      ],
+      "@semantic-release/github",
+      [
+        "@semantic-release/git",
+        {
+          "assets": [
+            "docs/*",
+            "README.md",
+            "CHANGELOG.md",
+            "package.json",
+            "package-lock.json"
+          ]
+        }
+      ]
+    ]
+  }
+}
