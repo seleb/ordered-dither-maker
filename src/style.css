@@ -1,0 +1,33 @@
+:root {
+	--white: #FFF;
+	--black: #000;
+}
+
+html {
+	background-color: var(--white);
+	color: var(--black);
+	font-family: 'Courier New', Courier, monospace;
+	height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	padding: 1rem;
+	gap: 1rem;
+	min-height: 100%;
+}
+
+h1 {
+	text-align: initial;
+	font-size: 200%;
+	font-weight: bold;
+}
+

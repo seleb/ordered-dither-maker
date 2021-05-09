@@ -1,0 +1,6 @@
+{
+	"files.exclude": {
+		".cache/**": true,
+		"docs/**": true
+	}
+}

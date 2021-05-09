@@ -1,0 +1,30 @@
+{
+	"short_name": "ordered-dither-maker",
+	"name": "ordered-dither-maker",
+	"icons": [{
+		"src": "./src/icon.png",
+		"type": "image/png",
+		"sizes": "32x32",
+		"purpose": "maskable any"
+	}, {
+		"src": "./src/icon_192.png",
+		"type": "image/png",
+		"sizes": "192x192",
+		"purpose": "maskable any"
+	}, {
+		"src": "./src/icon_256.png",
+		"type": "image/png",
+		"sizes": "256x256",
+		"purpose": "maskable any"
+	}, {
+		"src": "./src/icon_512.png",
+		"type": "image/png",
+		"sizes": "512x512",
+		"purpose": "maskable any"
+	}],
+	"display": "standalone",
+	"orientation": "any",
+	"theme_color": "#FFFFFF",
+	"background_color": "#FFFFFF",
+	"start_url": "."
+}

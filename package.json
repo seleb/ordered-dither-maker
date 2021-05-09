@@ -4,13 +4,30 @@
   "description": "tool for creating ordered dither threshold textures",
   "main": "index.js",
   "scripts": {
+    "start": "parcel index.html",
+    "build": "npm run build:cleanup && npm run build:parcel && npm run build:sw",
+    "build:cleanup": "rm -rf .cache && rm -rf docs",
+    "build:parcel": "parcel build index.html -d docs --no-source-maps --public-url ./",
+    "build:sw": "workbox generateSW",
+    "postversion": "npm run build"
   },
   "author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
   "license": "MIT",
   "repository": "github:seleb/ordered-dither-maker",
   "devDependencies": {
+    "@types/file-saver": "^2.0.2",
+    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.5",
+    "typescript": "^4.2.4",
+    "workbox-cli": "^6.1.2"
   },
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "canvas-toBlob": "^1.0.0",
+    "dialog-polyfill": "^0.5.6",
+    "file-saver": "^2.0.5",
+    "preact": "^10.5.13",
+    "reset-css": "^5.0.1"
   },
   "release": {
     "plugins": [

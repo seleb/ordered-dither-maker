@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"target": "es2018",
+		"sourceMap": true,
+		"module": "esnext",
+		"moduleResolution": "node",
+		"jsx": "react-jsx",
+		"jsxImportSource": "preact",
+		"lib": ["DOM", "esnext"],
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+	}
+}
