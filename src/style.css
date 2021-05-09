@@ -31,3 +31,105 @@ h1 {
 	font-weight: bold;
 }
 
+main {
+	display: grid;
+	grid-template-columns: 0fr 1fr;
+	grid-gap: 0.25rem 1rem;
+	width: 100%;
+	min-height: 100%;
+}
+
+hr {
+	grid-column: span 2;
+	width: 100%;
+	margin: 0;
+	border: 0;
+	border-top: solid 1px #BBB;
+}
+
+h1 {
+	grid-column-start: 2;
+}
+
+@media screen and (max-width: 32rem) {
+	h1 {
+		grid-column-start: unset;
+		grid-column: span 2;
+		text-align: center;
+		font-size: 125%;
+	}
+}
+
+label {
+	text-align: right;
+	align-self: center;
+}
+
+input[type="range"] {
+	position: relative;
+	margin-right: 4rem;
+}
+
+input[type="range"]::after {
+	content: attr(data-value);
+	position: absolute;
+	left: 100%;
+	margin-left: 0.5rem;
+}
+
+button:disabled,
+input:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+button {
+	width: 100%;
+}
+
+input,
+button {
+	font-family: inherit;
+	cursor: pointer;
+	padding: 0.25rem;
+}
+
+.grid {
+	grid-column: 1 / -1;
+	justify-self: center;
+	display: grid;
+	width: 100%;
+	max-width: 50vh;
+	grid-gap: 1px;
+	background: #888;
+	border: solid 1px #888;
+}
+
+.grid button {
+	background-color: #000;
+	border: none;
+	width: 100%;
+	height: 0;
+	padding: 0;
+	padding-bottom: 100%;
+}
+
+.grid button[value="true"] {
+	background-color: #FFF;
+}
+
+.grid button:enabled:hover {
+	background-color: #333;
+}
+
+.grid button[value="true"]:enabled:hover {
+	background-color: #BBB;
+}
+
+footer {
+	margin-top: auto;
+	font-size: 75%;
+	text-align: right;
+	align-self: flex-end;
+}
+
