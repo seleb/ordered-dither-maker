@@ -133,3 +133,10 @@ footer {
 	align-self: flex-end;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root {
+		color-scheme: dark;
+		--white: #000;
+		--black: #FFF;
+	}
+}
