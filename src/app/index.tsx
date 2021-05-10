@@ -161,6 +161,7 @@ function App() {
 			setHeight(h);
 			setLayers(l);
 			setDither(new Array(l).fill(0).map((_, layer) => new Array(h).fill(0).map((_, y) => new Array(w).fill(0).map((_, x) => output[y][x] === layer + 1))));
+			setSrcInput('');
 		};
 		img.src = srcInput;
 	}, [srcInput]);
