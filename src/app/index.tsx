@@ -40,12 +40,13 @@ uniform vec2 ditherSize;
 uniform float scale;
 uniform float posterize;
 uniform float grayscale;
+uniform float contrast;
 void main() {
 	vec2 coord = gl_FragCoord.xy;
 	coord -= mod(coord, scale);
 	vec2 uvDither = fract((coord + vec2(0.5)) / (ditherSize.xy * scale));
 	vec2 uvPreview = coord.xy / resolution;
-	vec3 col = texture2D(texPreview, uvPreview).rgb;
+	vec3 col = (texture2D(texPreview, uvPreview).rgb - 0.5) * contrast + 0.5;
 	vec3 limit = texture2D(texDither, uvDither).rgb;
 
 	// posterization
@@ -76,6 +77,7 @@ const glLocations = {
 	scale: gl.getUniformLocation(shader.program, 'scale'),
 	posterize: gl.getUniformLocation(shader.program, 'posterize'),
 	grayscale: gl.getUniformLocation(shader.program, 'grayscale'),
+	contrast: gl.getUniformLocation(shader.program, 'contrast'),
 };
 // misc. GL setup
 gl.enableVertexAttribArray(glLocations.position);
@@ -104,6 +106,16 @@ function App() {
 	const [srcInput, setSrcInput] = useState(bayer4);
 	const [srcOutput, setSrcOutput] = useState('');
 	const [srcPreview, setSrcPreview] = useState(sampleImage);
+	const [loading, setLoading] = useState(false);
+	const [layers, setLayers] = useState(4);
+	const [width, setWidth] = useState(4);
+	const [height, setHeight] = useState(4);
+	const [dither, setDither] = useState(() => new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))));
+	const [layer, setLayer] = useState(0);
+	const [posterize, setPosterize] = useState(1);
+	const [grayscale, setGrayscale] = useState(true);
+	const [contrast, setContrast] = useState(1);
+	const [scale, setScale] = useState(2);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
 		const reader = new FileReader();
@@ -162,15 +174,7 @@ function App() {
 		};
 		img.src = srcInput;
 	}, [srcInput]);
-	const [layers, setLayers] = useState(4);
-	const [width, setWidth] = useState(4);
-	const [height, setHeight] = useState(4);
-	const [dither, setDither] = useState(() => new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))));
-	const [layer, setLayer] = useState(0);
-	const [posterize, setPosterize] = useState(1);
-	const [grayscale, setGrayscale] = useState(true);
-	const [scale, setScale] = useState(2);
-	
+
 	const clear = useCallback(() => {
 		setDither(new Array(dither.length).fill(0).map(() => new Array(dither[0].length).fill(0).map(() => new Array(dither[0][0].length).fill(false))));
 	}, [dither]);
@@ -261,6 +265,11 @@ function App() {
 		gl.uniform1f(glLocations.scale, scale);
 		renderOutput();
 	}, [scale]);
+	// update contrast
+	useEffect(() => {
+		gl.uniform1f(glLocations.contrast, contrast);
+		renderOutput();
+	}, [contrast]);
 	return (
 		<>
 			<main>
