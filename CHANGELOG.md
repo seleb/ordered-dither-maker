@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/seleb/ordered-dither-maker/compare/v1.2.1...v1.3.0) (2021-05-10)
+
+
+### Bug Fixes
+
+* autoprefixer not being applied ([285c305](https://github.com/seleb/ordered-dither-maker/commit/285c30521ce687790ecd98a03034eb057f469237))
+
+
+### Features
+
+* better use of screen real estate ([6279cdf](https://github.com/seleb/ordered-dither-maker/commit/6279cdfe155ff929a70592b669f149c55ca0283e))
+
 ## [1.2.1](https://github.com/seleb/ordered-dither-maker/compare/v1.2.0...v1.2.1) (2021-05-10)
 
 
