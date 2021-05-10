@@ -6,25 +6,115 @@ import { ComponentProps, render } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import pkg from '../../package.json';
+import Gl, { Shader, Texture } from './gl';
 import { Grid } from './Grid';
-import { useInt, useRange } from './utils';
+import sampleImage from './img/506px-1665_Girl_with_a_Pearl_Earring.jpg';
+import { useCheckbox, useInt, useRange } from './utils';
 const inputCanvas = document.createElement('canvas');
 const inputCtx = inputCanvas.getContext('2d') as CanvasRenderingContext2D;
 const outputCanvas = document.createElement('canvas');
 const outputCtx = outputCanvas.getContext('2d') as CanvasRenderingContext2D;
+const previewCanvas = document.createElement('canvas');
+
+// create shader
+const gl = Gl(previewCanvas);
+const shader = new Shader(
+	`
+attribute vec4 position;
+void main() {
+	gl_Position = position;
+}
+`,
+	`
+precision mediump float;
+uniform sampler2D texPreview;
+uniform sampler2D texDither;
+uniform vec2 resolution;
+uniform vec2 ditherSize;
+uniform float scale;
+uniform float posterize;
+uniform float grayscale;
+void main() {
+	vec2 coord = gl_FragCoord.xy;
+	coord -= mod(coord, scale);
+	vec2 uvDither = fract((coord + vec2(0.5)) / (ditherSize.xy * scale));
+	// coord /= scale;
+	// coord = floor(coord);
+	// coord *= scale;
+	vec2 uvPreview = coord.xy / resolution;
+	vec3 col = texture2D(texPreview, uvPreview).rgb;
+	vec3 limit = texture2D(texDither, uvDither).rgb;
+
+	// posterization
+	vec3 raw = grayscale < 0.5 ? col : vec3(dot(col.rgb, vec3(0.299, 0.587, 0.114)));
+	vec3 posterized = raw - mod(raw, 1.0/posterize);
+
+	// dithering
+	vec3 dither = step(limit, (raw-posterized)*posterize)/posterize;
+
+	// output
+	gl_FragColor = vec4(posterized + dither, 1.0);
+}
+`
+);
+
+// create plane
+const vertices = new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]);
+const vertexBuffer = gl.createBuffer();
+gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+// cache GL attribute/uniform locations
+const glLocations = {
+	position: gl.getAttribLocation(shader.program, 'position'),
+	texPreview: gl.getUniformLocation(shader.program, 'texPreview'),
+	texDither: gl.getUniformLocation(shader.program, 'texDither'),
+	resolution: gl.getUniformLocation(shader.program, 'resolution'),
+	ditherSize: gl.getUniformLocation(shader.program, 'ditherSize'),
+	scale: gl.getUniformLocation(shader.program, 'scale'),
+	posterize: gl.getUniformLocation(shader.program, 'posterize'),
+	grayscale: gl.getUniformLocation(shader.program, 'grayscale'),
+};
+// misc. GL setup
+gl.enableVertexAttribArray(glLocations.position);
+shader.useProgram();
+gl.vertexAttribPointer(glLocations.position, 2, gl.FLOAT, false, 0, 0);
+gl.clearColor(0, 0, 0, 0.0);
+gl.uniform1i(glLocations.texPreview, 0);
+gl.uniform1i(glLocations.texDither, 1);
+const texturePreview = new Texture(new Image(), 0, false);
+const textureDither = new Texture(new Image(), 1, true);
+
+function renderOutput() {
+	gl.drawArrays(gl.TRIANGLES, 0, vertices.length / 2);
+}
 
 function saveOutput() {
 	outputCanvas.toBlob(saveAs);
 }
 
+function savePreview() {
+	renderOutput();
+	previewCanvas.toBlob(saveAs);
+}
+
 function App() {
 	const [srcInput, setSrcInput] = useState('');
 	const [srcOutput, setSrcOutput] = useState('');
+	const [srcPreview, setSrcPreview] = useState(sampleImage);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
 		const reader = new FileReader();
 		reader.onload = function () {
 			setSrcInput(reader.result?.toString() ?? '');
+		};
+		reader.readAsDataURL(event.currentTarget.files[0]);
+	}, []);
+
+	const onPreviewChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
+		if (!event.currentTarget?.files?.[0]) return;
+		const reader = new FileReader();
+		reader.onload = function () {
+			setSrcPreview(reader.result?.toString() ?? '');
 		};
 		reader.readAsDataURL(event.currentTarget.files[0]);
 	}, []);
@@ -69,6 +159,9 @@ function App() {
 	const [height, setHeight] = useState(4);
 	const [dither, setDither] = useState(() => new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))));
 	const [layer, setLayer] = useState(0);
+	const [posterize, setPosterize] = useState(1);
+	const [grayscale, setGrayscale] = useState(true);
+	const [scale, setScale] = useState(2);
 
 	const toggleValue = useCallback<ComponentProps<typeof Grid>['toggleValue']>(
 		(event) => {
@@ -113,12 +206,54 @@ function App() {
 			}
 		}
 		setSrcOutput(outputCanvas.toDataURL());
+
+		textureDither.source = outputCanvas;
+		textureDither.update();
+		textureDither.bind();
+		gl.uniform2f(glLocations.ditherSize, w, h);
+		renderOutput();
 	}, [dither]);
+
+	// update preview texture
+	useEffect(() => {
+		const img = new Image();
+		img.onerror = img.onload = () => {
+			texturePreview.source = img;
+			texturePreview.update();
+			texturePreview.bind();
+			previewCanvas.width = img.naturalWidth;
+			previewCanvas.height = img.naturalHeight;
+			gl.viewport(0, 0, previewCanvas.width, previewCanvas.height);
+			gl.uniform2f(glLocations.resolution, previewCanvas.width, previewCanvas.height);
+			renderOutput();
+		};
+		img.src = srcPreview;
+	}, [srcPreview]);
+
+	// put preview canvas in document
+	useEffect(() => {
+		document.querySelector('#preview-container')?.appendChild(previewCanvas);
+	}, []);
+	// update posterization level
+	useEffect(() => {
+		gl.uniform1f(glLocations.posterize, posterize);
+		renderOutput();
+	}, [posterize]);
+	// update grayscale
+	useEffect(() => {
+		gl.uniform1f(glLocations.grayscale, grayscale ? 1.0 : 0.0);
+		renderOutput();
+	}, [grayscale]);
+	// update scale
+	useEffect(() => {
+		gl.uniform1f(glLocations.scale, scale);
+		renderOutput();
+	}, [scale]);
 	return (
 		<>
 			<main>
 				<h1>ordered-dither-maker</h1>
-				<section>
+				<section id="controls">
 					<label htmlFor="source-file">import:</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
 
@@ -145,15 +280,40 @@ function App() {
 						toggleValue={toggleValue}
 					/>
 					<label htmlFor="layer">layer:</label>
-					<input id="layer" type="range" min={0} max={layers - 1} step={1} value={layer} data-value={layer + 1} onChange={useRange(setLayer)} />
+					<input id="layer" type="range" min={0} max={layers - 1} step={1} value={layer} data-value={layer + 1} onInput={useRange(setLayer)} />
+					
+					<hr />
+
+					<h2>preview options</h2>
+
+					<label htmlFor="preview-file">import:</label>
+					<input id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
+					
+					<label htmlFor="grayscale">grayscale:</label>
+					<input id="grayscale" type="checkbox" checked={grayscale} onChange={useCheckbox(setGrayscale)} />
+
+					<label htmlFor="posterize">steps:</label>
+					<input id="posterize" type="range" min={1} max={128} step={1} value={posterize} data-value={posterize} onInput={useRange(setPosterize)} />
+
+					<label htmlFor="scale">pixel scale:</label>
+					<input id="scale" type="range" min={1} max={8} step={1} value={scale} data-value={scale} onInput={useRange(setScale)} />
 				</section>
 
-				<section>
+				<section id="preview">
 					<figure>
 						<figcaption>
 							output <button onClick={saveOutput}>save</button>
 						</figcaption>
+						<div>
 						<img alt="Output image" id="output-img" src={srcOutput} />
+						</div>
+					</figure>
+
+					<figure id="preview-figure">
+						<figcaption>
+							preview <button onClick={savePreview}>save</button>
+						</figcaption>
+						<div id="preview-container"></div>
 					</figure>
 				</section>
 			</main>

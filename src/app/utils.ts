@@ -2,6 +2,15 @@ import { useCallback } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 
 
+export function useCheckbox(set: (checked: boolean) => void) {
+	return useCallback(
+		(event: JSXInternal.TargetedEvent<HTMLInputElement, Event>) => {
+			set(event.currentTarget.checked);
+		},
+		[set]
+	);
+}
+
 export function useRange(set: (value: number) => void) {
 	return useCallback(
 		(event: JSXInternal.TargetedEvent<HTMLInputElement, Event>) => {
