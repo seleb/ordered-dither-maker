@@ -2,7 +2,7 @@ import 'canvas-toBlob';
 import gcd from 'compute-gcd';
 import { saveAs } from 'file-saver';
 import 'preact';
-import { render } from 'preact';
+import { ComponentProps, render } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import pkg from '../../package.json';
@@ -73,8 +73,11 @@ function App() {
 	const [dither, setDither] = useState(() => new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))));
 	const [layer, setLayer] = useState(0);
 
-	const toggleValue = useCallback(
-		(x: number, y: number) => {
+	const toggleValue = useCallback<ComponentProps<typeof Grid>['toggleValue']>(
+		(event) => {
+			const target = event.currentTarget;
+			const x = parseInt(target.dataset.x || '0', 10);
+			const y = parseInt(target.dataset.y || '0', 10);
 			const v = JSON.parse(JSON.stringify(dither));
 			v[layer][y][x] = !v[layer][y][x];
 			setDither(v);
