@@ -10,9 +10,7 @@ export function Grid({
 		<div {...props} className="grid">
 			{value.map((row, y) =>
 				row.map((i, x) => (
-					<button disabled={required[y][x]} value={(required[y][x] || value[y][x]).toString()} onClick={() => toggleValue(x, y)}>
-						{i}
-					</button>
+					<button aria-label={`pixel x: ${x}, y: ${y}`} disabled={required[y][x]} value={(required[y][x] || value[y][x]).toString()} onClick={() => toggleValue(x, y)} />
 				))
 			)}
 		</div>
