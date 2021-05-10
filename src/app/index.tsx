@@ -172,6 +172,10 @@ function App() {
 	const [posterize, setPosterize] = useState(1);
 	const [grayscale, setGrayscale] = useState(true);
 	const [scale, setScale] = useState(2);
+	
+	const clear = useCallback(() => {
+		setDither(new Array(dither.length).fill(0).map(() => new Array(dither[0].length).fill(0).map(() => new Array(dither[0][0].length).fill(false))));
+	}, [dither]);
 
 	const toggleValue = useCallback<ComponentProps<typeof Grid>['toggleValue']>(
 		(event) => {
@@ -273,6 +277,7 @@ function App() {
 						<li><button value={bayer4} onClick={preset}>bayer4</button></li>
 						<li><button value={bayer8} onClick={preset}>bayer8</button></li>
 						<li><button value={bayer16} onClick={preset}>bayer16</button></li>
+						<li><button onClick={clear}>clear</button></li>
 					</ul>
 					</details>
 
