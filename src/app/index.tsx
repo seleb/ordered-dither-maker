@@ -12,8 +12,6 @@ const inputCanvas = document.createElement('canvas');
 const inputCtx = inputCanvas.getContext('2d') as CanvasRenderingContext2D;
 const outputCanvas = document.createElement('canvas');
 const outputCtx = outputCanvas.getContext('2d') as CanvasRenderingContext2D;
-outputCanvas.width = 0;
-outputCanvas.height = 0;
 
 function saveOutput() {
 	outputCanvas.toBlob(saveAs);
