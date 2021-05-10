@@ -161,6 +161,7 @@ figure figcaption button {
 
 #preview-container {
 	overflow: auto;
+	display: flex;
 }
 
 #preview-container canvas {
