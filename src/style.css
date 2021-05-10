@@ -135,7 +135,7 @@ figure > figcaption {
 	position: absolute;
 	top: 0;
 	left: 0;
-	background: #000;
+	background: var(--white);
 	border: solid 1px #888;
 	border-top: 0;
 	border-left: 0;
