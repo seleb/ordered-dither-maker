@@ -39,9 +39,9 @@ function App() {
 		outputCtx.fillRect(0, 0, w, h);
 		for (let y = 0; y < h; ++y) {
 			for (let x = 0; x < w; ++x) {
-				const brightness = Math.max(0, (dither.findIndex(d => d[y][x]) + 1) / (l) * 256 - 1);
+				const brightness = Math.max(0, ((dither.findIndex(d => d[y][x]) + 1) / l) * 256 - 1);
 				outputCtx.fillStyle = `rgb(${brightness}, ${brightness}, ${brightness})`;
-				outputCtx.fillRect(x,y,1,1);
+				outputCtx.fillRect(x, y, 1, 1);
 			}
 		}
 		setSrcOutput(outputCanvas.toDataURL());
