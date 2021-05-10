@@ -41,12 +41,13 @@ uniform float scale;
 uniform float posterize;
 uniform float grayscale;
 uniform float contrast;
+uniform float brightness;
 void main() {
 	vec2 coord = gl_FragCoord.xy;
 	coord -= mod(coord, scale);
 	vec2 uvDither = fract((coord + vec2(0.5)) / (ditherSize.xy * scale));
 	vec2 uvPreview = coord.xy / resolution;
-	vec3 col = (texture2D(texPreview, uvPreview).rgb - 0.5) * contrast + 0.5;
+	vec3 col = (texture2D(texPreview, uvPreview).rgb - 0.5 + (brightness - 1.0)) * contrast + 0.5;
 	vec3 limit = texture2D(texDither, uvDither).rgb;
 
 	// posterization
@@ -78,6 +79,7 @@ const glLocations = {
 	posterize: gl.getUniformLocation(shader.program, 'posterize'),
 	grayscale: gl.getUniformLocation(shader.program, 'grayscale'),
 	contrast: gl.getUniformLocation(shader.program, 'contrast'),
+	brightness: gl.getUniformLocation(shader.program, 'brightness'),
 };
 // misc. GL setup
 gl.enableVertexAttribArray(glLocations.position);
@@ -115,6 +117,7 @@ function App() {
 	const [posterize, setPosterize] = useState(1);
 	const [grayscale, setGrayscale] = useState(true);
 	const [contrast, setContrast] = useState(1);
+	const [brightness, setBrightness] = useState(1);
 	const [scale, setScale] = useState(2);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
@@ -270,6 +273,11 @@ function App() {
 		gl.uniform1f(glLocations.contrast, contrast);
 		renderOutput();
 	}, [contrast]);
+	// update brightness
+	useEffect(() => {
+		gl.uniform1f(glLocations.brightness, brightness);
+		renderOutput();
+	}, [brightness]);
 	return (
 		<>
 			<main>
