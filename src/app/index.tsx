@@ -311,13 +311,13 @@ function App() {
 					<label htmlFor="preview-file">import:</label>
 					<input id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
 					
-					<label htmlFor="grayscale">grayscale:</label>
+					<label htmlFor="grayscale" title="whether to convert to grayscale before applying dither" >grayscale:</label>
 					<input id="grayscale" type="checkbox" checked={grayscale} onChange={useCheckbox(setGrayscale)} />
 
-					<label htmlFor="posterize">steps:</label>
+					<label htmlFor="posterize" title="level of posterization to apply before dither; higher values mean more colours in the final image" >steps:</label>
 					<input id="posterize" type="range" min={1} max={128} step={1} value={posterize} data-value={posterize} onInput={useRange(setPosterize)} />
 
-					<label htmlFor="scale">pixel scale:</label>
+					<label htmlFor="scale" title="size of pixels in preview" >pixel scale:</label>
 					<input id="scale" type="range" min={1} max={8} step={1} value={scale} data-value={scale} onInput={useRange(setScale)} />
 				</section>
 

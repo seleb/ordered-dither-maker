@@ -88,6 +88,10 @@ label {
 	align-self: center;
 }
 
+label[title] {
+	cursor: help;
+}
+
 
 input[type="file"] {
 	width: 100%;
