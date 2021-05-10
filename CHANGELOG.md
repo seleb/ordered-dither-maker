@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/seleb/ordered-dither-maker/compare/v1.2.0...v1.2.1) (2021-05-10)
+
+
+### Bug Fixes
+
+* captions in light mode ([936c228](https://github.com/seleb/ordered-dither-maker/commit/936c2280663d04a6f9f199168a95c31fe7080934))
+
 # [1.2.0](https://github.com/seleb/ordered-dither-maker/compare/v1.1.0...v1.2.0) (2021-05-10)
 
 
