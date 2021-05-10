@@ -264,8 +264,8 @@ function App() {
 	return (
 		<>
 			<main>
-				<h1>ordered-dither-maker</h1>
 				<section id="controls">
+					<h1 className="fill">ordered-dither-maker</h1>
 					<label htmlFor="source-file">import:</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
 					<details className="fill"><summary>presets</summary>
