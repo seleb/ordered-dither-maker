@@ -44,9 +44,6 @@ void main() {
 	vec2 coord = gl_FragCoord.xy;
 	coord -= mod(coord, scale);
 	vec2 uvDither = fract((coord + vec2(0.5)) / (ditherSize.xy * scale));
-	// coord /= scale;
-	// coord = floor(coord);
-	// coord *= scale;
 	vec2 uvPreview = coord.xy / resolution;
 	vec3 col = texture2D(texPreview, uvPreview).rgb;
 	vec3 limit = texture2D(texDither, uvDither).rgb;
