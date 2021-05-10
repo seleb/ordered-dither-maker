@@ -15,6 +15,7 @@
   "repository": "github:seleb/ordered-dither-maker",
   "devDependencies": {
     "@types/file-saver": "^2.0.2",
+    "autoprefixer": "^9.0.0",
     "parcel": "^1.12.4",
     "parcel-bundler": "^1.12.5",
     "typescript": "^4.2.4",
