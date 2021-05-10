@@ -25,18 +25,26 @@ body {
 	min-height: 100%;
 }
 
+main {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 0.25rem;
+	width: 100%;
+	min-height: 100%;
+}
+
 h1 {
+	grid-column: 1 / -1;
 	text-align: initial;
 	font-size: 200%;
 	font-weight: bold;
 }
 
-main {
+main > section {
 	display: grid;
 	grid-template-columns: 0fr 1fr;
 	grid-gap: 0.25rem 1rem;
 	width: 100%;
-	min-height: 100%;
 }
 
 hr {
@@ -45,10 +53,6 @@ hr {
 	margin: 0;
 	border: 0;
 	border-top: solid 1px #BBB;
-}
-
-h1 {
-	grid-column-start: 2;
 }
 
 @media screen and (max-width: 32rem) {
@@ -63,6 +67,15 @@ h1 {
 label {
 	text-align: right;
 	align-self: center;
+}
+
+ul li:not(:last-of-type)::after {
+	content: 'or';
+}
+
+
+input[type="file"] {
+	width: 100%;
 }
 
 input[type="range"] {
@@ -83,6 +96,11 @@ input:disabled {
 	cursor: not-allowed;
 }
 
+img {
+	border: solid 1px var(--black);
+	max-width: 100%;
+	max-height: 100%;
+}
 button {
 	width: 100%;
 }
@@ -92,6 +110,21 @@ button {
 	font-family: inherit;
 	cursor: pointer;
 	padding: 0.25rem;
+}
+
+
+figure {
+	grid-column: 1 / -1;
+}
+
+figure img {
+	width: 100%;
+	max-width: 50vh;
+	image-rendering: pixelated;
+}
+
+figure figcaption button {
+	width: auto;
 }
 
 .grid {
