@@ -336,6 +336,16 @@ function App() {
 
 					<label htmlFor="scale" title="size of pixels in preview" >pixel scale:</label>
 					<input id="scale" type="range" min={1} max={8} step={1} value={scale} data-value={scale} onInput={useRange(setScale)} />
+
+					<label htmlFor="brightness" title="brightness to apply before dither">
+						brightness:
+					</label>
+					<input id="brightness" type="range" min={-1} max={3} step={0.01} value={brightness} data-value={brightness} onInput={useRange(setBrightness)} />
+
+					<label htmlFor="contrast" title="contrast to apply before dither">
+						contrast:
+					</label>
+					<input id="contrast" type="range" min={1} max={10} step={0.01} value={contrast} data-value={contrast} onInput={useRange(setContrast)} />
 				</section>
 
 				<section id="preview">
