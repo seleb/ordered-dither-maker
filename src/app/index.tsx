@@ -79,7 +79,7 @@ function App() {
 			v[layer][y][x] = !v[layer][y][x];
 			setDither(v);
 		},
-		[dither]
+		[dither, layer]
 	);
 
 	useLayoutEffect(() => {
