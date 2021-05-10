@@ -104,7 +104,7 @@ function savePreview() {
 }
 
 function App() {
-	const [srcInput, setSrcInput] = useState('');
+	const [srcInput, setSrcInput] = useState(bayer4);
 	const [srcOutput, setSrcOutput] = useState('');
 	const [srcPreview, setSrcPreview] = useState(sampleImage);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
