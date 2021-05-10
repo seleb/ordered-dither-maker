@@ -9,7 +9,13 @@ import pkg from '../../package.json';
 import Gl, { Shader, Texture } from './gl';
 import { Grid } from './Grid';
 import sampleImage from './img/506px-1665_Girl_with_a_Pearl_Earring.jpg';
+import bayer16 from './img/bayer16.png';
+import bayer2 from './img/bayer2.png';
+import bayer4 from './img/bayer4.png';
+import bayer8 from './img/bayer8.png';
+import checker from './img/checker2.png';
 import { useCheckbox, useInt, useRange } from './utils';
+
 const inputCanvas = document.createElement('canvas');
 const inputCtx = inputCanvas.getContext('2d') as CanvasRenderingContext2D;
 const outputCanvas = document.createElement('canvas');
@@ -117,6 +123,10 @@ function App() {
 			setSrcPreview(reader.result?.toString() ?? '');
 		};
 		reader.readAsDataURL(event.currentTarget.files[0]);
+	}, []);
+
+	const preset = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLButtonElement>['onClick']>>((event) => {
+		setSrcInput(event.currentTarget.value);
 	}, []);
 
 	useEffect(() => {
@@ -256,6 +266,15 @@ function App() {
 				<section id="controls">
 					<label htmlFor="source-file">import:</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
+					<details className="fill"><summary>presets</summary>
+					<ul>
+						<li><button value={checker} onClick={preset}>checker</button></li>
+						<li><button value={bayer2} onClick={preset}>bayer2</button></li>
+						<li><button value={bayer4} onClick={preset}>bayer4</button></li>
+						<li><button value={bayer8} onClick={preset}>bayer8</button></li>
+						<li><button value={bayer16} onClick={preset}>bayer16</button></li>
+					</ul>
+					</details>
 
 					<hr />
 

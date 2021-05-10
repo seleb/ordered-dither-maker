@@ -86,10 +86,6 @@ label {
 	align-self: center;
 }
 
-ul li:not(:last-of-type)::after {
-	content: 'or';
-}
-
 
 input[type="file"] {
 	width: 100%;
@@ -149,6 +145,10 @@ figure figcaption button {
 
 #preview-container {
 	overflow: auto;
+}
+
+.fill {
+	grid-column: 1 / -1;
 }
 
 .grid {
