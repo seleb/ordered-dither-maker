@@ -25,7 +25,6 @@
     "babel-polyfill": "^6.26.0",
     "canvas-toBlob": "^1.0.0",
     "compute-gcd": "^1.2.1",
-    "dialog-polyfill": "^0.5.6",
     "file-saver": "^2.0.5",
     "preact": "^10.5.13",
     "reset-css": "^5.0.1"
