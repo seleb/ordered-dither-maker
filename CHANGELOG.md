@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/seleb/ordered-dither-maker/compare/v1.1.0...v1.2.0) (2021-05-10)
+
+
+### Bug Fixes
+
+* setting same file twice in a row ignored ([778d0ee](https://github.com/seleb/ordered-dither-maker/commit/778d0ee57e3105be28350482687662d3d5d92c99))
+
+
+### Features
+
+* add a few presets ([aa5830b](https://github.com/seleb/ordered-dither-maker/commit/aa5830b595bfb8d7448d94ba91e5758bdbe507b9))
+* add clear button to presets ([8d07feb](https://github.com/seleb/ordered-dither-maker/commit/8d07feb1007d674dcd3799de85a15d479699ae28))
+* add title text to preview options ([977d50b](https://github.com/seleb/ordered-dither-maker/commit/977d50bb066a56246eaaa95ef7a69465d4c572f6))
+* improve layout ([1bf00a6](https://github.com/seleb/ordered-dither-maker/commit/1bf00a60ec897a116604c081f2609852ea70905a))
+* start with bayer4 loaded ([d171042](https://github.com/seleb/ordered-dither-maker/commit/d1710420f7655bdd6b27efdee5e63f9dbcbffd6b))
+
 # [1.1.0](https://github.com/seleb/ordered-dither-maker/compare/v1.0.0...v1.1.0) (2021-05-10)
 
 
