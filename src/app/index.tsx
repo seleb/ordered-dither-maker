@@ -3,7 +3,7 @@ import gcd from 'compute-gcd';
 import { saveAs } from 'file-saver';
 import 'preact';
 import { ComponentProps, render } from 'preact';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import pkg from '../../package.json';
 import { Grid } from './Grid';
@@ -22,7 +22,6 @@ function saveOutput() {
 function App() {
 	const [srcInput, setSrcInput] = useState('');
 	const [srcOutput, setSrcOutput] = useState('');
-	const refImgOutput = useRef<HTMLImageElement>();
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
 		const reader = new FileReader();
@@ -156,7 +155,7 @@ function App() {
 						<figcaption>
 							output <button onClick={saveOutput}>save</button>
 						</figcaption>
-						<img alt="Output image" id="output-img" src={srcOutput} ref={refImgOutput} />
+						<img alt="Output image" id="output-img" src={srcOutput} />
 					</figure>
 				</section>
 			</main>
