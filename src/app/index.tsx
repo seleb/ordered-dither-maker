@@ -7,6 +7,7 @@ import { ComponentProps, render } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import pkg from '../../package.json';
+import { fragment } from './fragment';
 import Gl, { Shader, Texture } from './gl';
 import { Grid } from './Grid';
 import sampleImage from './img/506px-1665_Girl_with_a_Pearl_Earring.jpg';
@@ -18,6 +19,7 @@ import checker from './img/checker2.png';
 import { Modal } from './Modal';
 import { Range } from './Range';
 import { useCheckbox, useInt } from './utils';
+import { vertex } from './vertex';
 
 const FLICKR_API_KEY = '306bf363cfbce3604dbbf827bd5f7398';
 
@@ -31,44 +33,7 @@ const previewCanvas = document.createElement('canvas');
 
 // create shader
 const gl = Gl(previewCanvas);
-const shader = new Shader(
-	`
-attribute vec4 position;
-void main() {
-	gl_Position = position;
-}
-`,
-	`
-precision mediump float;
-uniform sampler2D texPreview;
-uniform sampler2D texDither;
-uniform vec2 resolution;
-uniform vec2 ditherSize;
-uniform float scale;
-uniform float posterize;
-uniform float grayscale;
-uniform float contrast;
-uniform float brightness;
-void main() {
-	vec2 coord = gl_FragCoord.xy;
-	coord -= mod(coord, scale);
-	vec2 uvDither = fract((coord + vec2(0.5)) / (ditherSize.xy * scale));
-	vec2 uvPreview = coord.xy / resolution;
-	vec3 col = (texture2D(texPreview, uvPreview).rgb - 0.5 + (brightness - 1.0)) * contrast + 0.5;
-	vec3 limit = texture2D(texDither, uvDither).rgb;
-
-	// posterization
-	vec3 raw = grayscale < 0.5 ? col : vec3(dot(col.rgb, vec3(0.299, 0.587, 0.114)));
-	vec3 posterized = raw - mod(raw, 1.0/posterize);
-
-	// dithering
-	vec3 dither = step(limit, (raw-posterized)*posterize)/posterize;
-
-	// output
-	gl_FragColor = vec4(posterized + dither, 1.0);
-}
-`
-);
+const shader = new Shader(vertex, fragment);
 
 // create plane
 const vertices = new Float32Array([-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, 1.0, -1.0, 1.0, 1.0, -1.0, 1.0]);
@@ -470,7 +435,7 @@ function App() {
 					<p>
 						The drawing grid allows you to visualize each "layer" of the threshold map, and to build up the final texture additively. The preview area applies a basic posterize + dither through
 						post-processing using the generated texture (source available{' '}
-						<a href="https://github.com/seleb/ordered-dither-maker/blob/main/src/app/index.tsx#L41" target="_blank" rel="noopener noreferrer">
+						<a href="https://github.com/seleb/ordered-dither-maker/blob/main/src/app/fragment.ts" target="_blank" rel="noopener noreferrer">
 							here
 						</a>
 						).
