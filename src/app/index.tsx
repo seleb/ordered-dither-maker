@@ -15,6 +15,7 @@ import bayer2 from './img/bayer2.png';
 import bayer4 from './img/bayer4.png';
 import bayer8 from './img/bayer8.png';
 import checker from './img/checker2.png';
+import { Modal } from './Modal';
 import { Range } from './Range';
 import { useCheckbox, useInt } from './utils';
 
@@ -125,6 +126,9 @@ function App() {
 	const [contrast, setContrast] = useState(1);
 	const [brightness, setBrightness] = useState(1);
 	const [scale, setScale] = useState(2);
+	const [about, setAbout] = useState(false);
+	const closeAbout = useCallback(() => setAbout(false));
+	const openAbout = useCallback(() => setAbout(true));
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
 		const reader = new FileReader();
@@ -332,7 +336,7 @@ function App() {
 		<>
 			<main>
 				<section id="controls">
-					<h1 className="fill">ordered-dither-maker</h1>
+					<h1 className="fill">{pkg.name}</h1>
 					<label htmlFor="source-file">import:</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
 					<details className="fill">
@@ -448,7 +452,41 @@ function App() {
 					</figure>
 				</section>
 			</main>
-			<footer>v{pkg.version}</footer>
+			<footer>
+				<button onClick={openAbout}>about</button>
+			</footer>
+			{about && (
+				<Modal close={closeAbout}>
+					<h2>
+						{pkg.name} v{pkg.version}
+					</h2>
+					<p>
+						This tool allows you to create textures that can be used as threshold maps for{' '}
+						<a href="https://en.wikipedia.org/wiki/Ordered_dithering" target="_blank" rel="noopener noreferrer">
+							ordered dithering
+						</a>
+						, a technique usually implemented using programmatically generated Bayer matrices.
+					</p>
+					<p>
+						The drawing grid allows you to visualize each "layer" of the threshold map, and to build up the final texture additively. The preview area applies a basic posterize + dither through
+						post-processing using the generated texture (source available{' '}
+						<a href="https://github.com/seleb/ordered-dither-maker/blob/main/src/app/index.tsx#L41" target="_blank" rel="noopener noreferrer">
+							here
+						</a>
+						).
+					</p>
+					<p>
+						Randomized preview images sourced from a{' '}
+						<a href="https://www.flickr.com/photos/britishlibrary/albums/72157641858423503" target="_blank" rel="noopener noreferrer">
+							British Library collection
+						</a>{' '}
+						of public domain works.
+					</p>
+					<nav>
+						<button onClick={closeAbout}>close</button>
+					</nav>
+				</Modal>
+			)}
 		</>
 	);
 }

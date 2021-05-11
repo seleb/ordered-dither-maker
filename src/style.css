@@ -216,6 +216,65 @@ footer {
 	text-align: right;
 }
 
+dialog {
+	color: var(--black);
+	background-color: var(--white);
+	text-align: initial;
+	max-width: 48rem;
+}
+
+dialog p:not(:first-child) {
+	margin-top: 0.5rem;
+}
+
+dialog p:not(:last-child) {
+	margin-bottom: 0.5rem;
+}
+
+dialog a {
+	color: inherit;
+	opacity: 0.8;
+}
+
+dialog a:visited {
+	opacity: 0.6;
+}
+
+dialog a:hover {
+	opacity: 0.9;
+}
+
+dialog a:active {
+	opacity: 1.0;
+}
+
+dialog::backdrop,
+dialog+.backdrop {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+dialog+.backdrop {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+dialog nav {
+	width: 100%;
+	flex: none;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+dialog nav button {
+	margin-inline-start: auto;
+	width: auto;
+}
+
 @media (prefers-color-scheme: dark) {
 	:root {
 		color-scheme: dark;

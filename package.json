@@ -25,6 +25,7 @@
     "babel-polyfill": "^6.26.0",
     "canvas-toBlob": "^1.0.0",
     "compute-gcd": "^1.2.1",
+    "dialog-polyfill": "^0.5.6",
     "file-saver": "^2.0.5",
     "flickr-sdk": "^3.10.0",
     "preact": "^10.5.13",
