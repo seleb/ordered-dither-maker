@@ -1,3 +1,19 @@
+# [1.4.0](https://github.com/seleb/ordered-dither-maker/compare/v1.3.1...v1.4.0) (2021-05-11)
+
+
+### Bug Fixes
+
+* center preview vertically ([f7b60d5](https://github.com/seleb/ordered-dither-maker/commit/f7b60d51e54dc70f9c4478325c459766b343592c))
+
+
+### Features
+
+* add brightness ([af045a1](https://github.com/seleb/ordered-dither-maker/commit/af045a1f04f42c54808c8a3480ac65b8f8b5adb2))
+* add contrast ([e8ce890](https://github.com/seleb/ordered-dither-maker/commit/e8ce890c83fefb2413ba38f3a2dbd882fad65bd9))
+* add controls for brightness/contrast ([25a20ad](https://github.com/seleb/ordered-dither-maker/commit/25a20adac3ac6c4bb3a3949619b38fed4d0639ff))
+* add loading state + automatically set brightness/contrast when changing preview image ([3e463ac](https://github.com/seleb/ordered-dither-maker/commit/3e463ac7ce46e13c299f19263c4dffef760151b2))
+* add random preview images ([97d4882](https://github.com/seleb/ordered-dither-maker/commit/97d4882622d7969e5af73d002ac4485c888ad47a))
+
 ## [1.3.1](https://github.com/seleb/ordered-dither-maker/compare/v1.3.0...v1.3.1) (2021-05-10)
 
 
