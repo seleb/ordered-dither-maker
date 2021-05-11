@@ -9,4 +9,4 @@ tool for creating ordered dither threshold textures
 
 1. TODO
 
-![Screenshot showing UI](./cover.png)
+![Screenshot showing UI](./cover.gif)
