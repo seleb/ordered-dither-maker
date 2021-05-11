@@ -340,7 +340,7 @@ function App() {
 
 					<hr />
 
-					<label htmlFor="layers" title="layers in generated texture">layers:</label>
+					<label htmlFor="layers" title="layers in generated texture (powers of 2 recommended for best results)">layers:</label>
 					<input id="layers" type="number" min={1} max={256} value={layers} onChange={useInt(setLayers)} />
 
 					<label htmlFor="width" title="width of generated texture">width:</label>
