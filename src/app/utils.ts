@@ -14,6 +14,7 @@ export function useCheckbox(set: (checked: boolean) => void) {
 export function useRange(set: (value: number) => void) {
 	return useCallback(
 		(event: JSXInternal.TargetedEvent<HTMLInputElement, Event>) => {
+			if (event.currentTarget.value === '') return;
 			set(parseFloat(event.currentTarget.value));
 		},
 		[set]
@@ -23,6 +24,7 @@ export function useRange(set: (value: number) => void) {
 export function useInt(set: (value: number) => void) {
 	return useCallback(
 		(event: JSXInternal.TargetedEvent<HTMLInputElement, Event>) => {
+			if (event.currentTarget.value === '') return;
 			const min = event.currentTarget.min;
 			const max = event.currentTarget.max;
 			let value = parseInt(event.currentTarget.value, 10);
