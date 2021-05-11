@@ -16,6 +16,7 @@ import bayer2 from './img/bayer2.png';
 import bayer4 from './img/bayer4.png';
 import bayer8 from './img/bayer8.png';
 import checker from './img/checker2.png';
+import diagonals from './img/diagonals4.png';
 import { Modal } from './Modal';
 import { Range } from './Range';
 import { useCheckbox, useInt } from './utils';
@@ -310,6 +311,11 @@ function App() {
 							<li>
 								<button value={checker} onClick={preset}>
 									checker
+								</button>
+							</li>
+							<li>
+								<button value={diagonals} onClick={preset}>
+									diagonals
 								</button>
 							</li>
 							<li>
