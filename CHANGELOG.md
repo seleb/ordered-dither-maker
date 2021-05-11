@@ -1,3 +1,16 @@
+# [1.6.0](https://github.com/seleb/ordered-dither-maker/compare/v1.5.0...v1.6.0) (2021-05-11)
+
+
+### Bug Fixes
+
+* details cursor ([ac0bdcb](https://github.com/seleb/ordered-dither-maker/commit/ac0bdcb24be72253c33fbfdd26eb4bac5d5419f2))
+
+
+### Features
+
+* add about dialog ([7ea9fbd](https://github.com/seleb/ordered-dither-maker/commit/7ea9fbdbfabf3c35ac51c231bf8d385fa0d232d6))
+* add more titles ([839ac5c](https://github.com/seleb/ordered-dither-maker/commit/839ac5cfdbc2e72d138aec99cfa4c77360f7ac71))
+
 # [1.5.0](https://github.com/seleb/ordered-dither-maker/compare/v1.4.0...v1.5.0) (2021-05-11)
 
 
