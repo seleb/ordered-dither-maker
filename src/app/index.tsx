@@ -15,7 +15,8 @@ import bayer2 from './img/bayer2.png';
 import bayer4 from './img/bayer4.png';
 import bayer8 from './img/bayer8.png';
 import checker from './img/checker2.png';
-import { useCheckbox, useInt, useRange } from './utils';
+import { Range } from './Range';
+import { useCheckbox, useInt } from './utils';
 
 const FLICKR_API_KEY = '306bf363cfbce3604dbbf827bd5f7398';
 
@@ -391,7 +392,7 @@ function App() {
 						toggleValue={toggleValue}
 					/>
 					<label htmlFor="layer">layer:</label>
-					<input id="layer" type="range" min={0} max={layers - 1} step={1} value={layer} data-value={layer + 1} onInput={useRange(setLayer)} />
+					<Range id="layer" min={0} max={layers - 1} step={1} value={layer} setValue={setLayer} />
 
 					<hr />
 
@@ -411,22 +412,22 @@ function App() {
 					<label htmlFor="posterize" title="level of posterization to apply before dither; higher values mean more colours in the final image">
 						steps:
 					</label>
-					<input id="posterize" type="range" min={1} max={128} step={1} value={posterize} data-value={posterize} onInput={useRange(setPosterize)} />
+					<Range id="posterize" min={1} max={128} step={1} value={posterize} setValue={setPosterize} />
 
 					<label htmlFor="scale" title="size of pixels in preview">
 						pixel scale:
 					</label>
-					<input id="scale" type="range" min={1} max={8} step={1} value={scale} data-value={scale} onInput={useRange(setScale)} />
+					<Range id="scale" min={1} max={8} step={1} value={scale} setValue={setScale} />
 
 					<label htmlFor="brightness" title="brightness to apply before dither">
 						brightness:
 					</label>
-					<input id="brightness" type="range" min={0} max={2} step={0.01} value={brightness} data-value={brightness} onInput={useRange(setBrightness)} />
+					<Range id="brightness" min={0} max={2} step={0.01} value={brightness} setValue={setBrightness} />
 
 					<label htmlFor="contrast" title="contrast to apply before dither">
 						contrast:
 					</label>
-					<input id="contrast" type="range" min={1} max={10} step={0.01} value={contrast} data-value={contrast} onInput={useRange(setContrast)} />
+					<Range id="contrast" min={1} max={9.99} step={0.01} value={contrast} setValue={setContrast} />
 				</section>
 
 				<section id="preview">

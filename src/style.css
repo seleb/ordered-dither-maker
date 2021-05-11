@@ -90,16 +90,20 @@ input[type="file"] {
 	width: 100%;
 }
 
-input[type="range"] {
-	position: relative;
-	margin-right: 4rem;
+.range {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 }
 
-input[type="range"]::after {
-	content: attr(data-value);
-	position: absolute;
-	left: 100%;
-	margin-left: 0.5rem;
+.range > input[type="range"] {
+	flex: auto;
+	width: 100%;
+}
+
+.range > input[type="number"] {
+	flex: none;
+	min-width: 4rem;
 }
 
 button:disabled,
