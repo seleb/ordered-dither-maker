@@ -124,6 +124,10 @@ button {
 	min-width: 0;
 }
 
+details > summary {
+	cursor: pointer;
+}
+
 figure {
 	position: relative;
 	border: solid 1px #888;
