@@ -85,21 +85,18 @@ function App() {
 	const [layers, setLayers] = useState(4);
 	const [width, setWidth] = useState(4);
 	const [height, setHeight] = useState(4);
-	const [dither, dispatch] = useReducer(
-		(state, action: { type: 'set'; payload: boolean[][][] } | { type: 'toggle'; payload: [number, number, number] }) => {
-			switch (action.type) {
-				case 'set':
-					return action.payload;
-				case 'toggle': {
-					const [layer, x, y] = action.payload;
-					const v = JSON.parse(JSON.stringify(state));
-					v[layer][y][x] = !v[layer][y][x];
-					return v;
-				}
+	const [dither, dispatch] = useReducer((state, action: { type: 'set'; payload: boolean[][][] } | { type: 'toggle'; payload: [number, number, number] }) => {
+		switch (action.type) {
+			case 'set':
+				return action.payload;
+			case 'toggle': {
+				const [layer, x, y] = action.payload;
+				const v = JSON.parse(JSON.stringify(state));
+				v[layer][y][x] = !v[layer][y][x];
+				return v;
 			}
-		},
-		new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))) as boolean[][][]
-	);
+		}
+	}, new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))) as boolean[][][]);
 	const [layer, setLayer] = useState(0);
 	const [posterize, setPosterize] = useState(1);
 	const [grayscale, setGrayscale] = useState(true);
@@ -307,7 +304,9 @@ function App() {
 			<main>
 				<section id="controls">
 					<h1 className="fill">{pkg.name}</h1>
-					<label htmlFor="source-file" title="import a previously-generated threshold map">import:</label>
+					<label htmlFor="source-file" title="import a previously-generated threshold map">
+						import:
+					</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
 					<details className="fill">
 						<summary>presets</summary>
@@ -350,13 +349,19 @@ function App() {
 
 					<hr />
 
-					<label htmlFor="layers" title="layers in generated texture (non-powers of 2 will expand to 256 on reimport)">{Math.log2(layers)%1 !== 0 && '(!) '} layers:</label>
+					<label htmlFor="layers" title="layers in generated texture (non-powers of 2 will expand to 256 on reimport)">
+						{Math.log2(layers) % 1 !== 0 && '(!) '} layers:
+					</label>
 					<input id="layers" type="number" min={1} max={256} value={layers} onChange={useInt(setLayers)} />
 
-					<label htmlFor="width" title="width of generated texture">width:</label>
+					<label htmlFor="width" title="width of generated texture">
+						width:
+					</label>
 					<input id="width" type="number" min={1} value={width} onChange={useInt(setWidth)} />
 
-					<label htmlFor="height" title="height of generated texture">height:</label>
+					<label htmlFor="height" title="height of generated texture">
+						height:
+					</label>
 					<input id="height" type="number" min={1} value={height} onChange={useInt(setHeight)} />
 
 					<hr />
@@ -366,20 +371,24 @@ function App() {
 							'grid-template-columns': `repeat(${width}, 1fr)`,
 							'grid-template-rows': `repeat(${height}, 1fr)`,
 							'grid-gap': Math.max(width, height) > 16 ? '0' : '1px',
-							'min-width': `${width*4+2}px`,
+							'min-width': `${width * 4 + 2}px`,
 						}}
 						value={dither[layer]}
 						required={required}
 						toggleValue={toggleValue}
 					/>
-					<label htmlFor="layer" title="layer to draw on (pixels filled due to layers underneath are shown grayed out)">layer:</label>
+					<label htmlFor="layer" title="layer to draw on (pixels filled due to layers underneath are shown grayed out)">
+						layer:
+					</label>
 					<Range id="layer" min={0} max={layers - 1} step={1} value={layer} setValue={setLayer} />
 
 					<hr />
 
 					<h2>preview options</h2>
 
-					<label htmlFor="preview-file" title="import a custom preview image">import:</label>
+					<label htmlFor="preview-file" title="import a custom preview image">
+						import:
+					</label>
 					<input disabled={loading} id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
 					<button title="load a random preview image" disabled={loading} className="fill" onClick={getRandomPreview}>
 						random
@@ -414,7 +423,10 @@ function App() {
 				<section id="preview">
 					<figure>
 						<figcaption>
-							output <button title="save generated threshold map" onClick={saveOutput}>save</button>
+							output{' '}
+							<button title="save generated threshold map" onClick={saveOutput}>
+								save
+							</button>
 						</figcaption>
 						<div>
 							<img alt="Output image" id="output-img" src={srcOutput} />
@@ -423,7 +435,10 @@ function App() {
 
 					<figure id="preview-figure">
 						<figcaption>
-							preview <button title="save current preview image with dither applied" onClick={savePreview}>save</button>
+							preview{' '}
+							<button title="save current preview image with dither applied" onClick={savePreview}>
+								save
+							</button>
 						</figcaption>
 						<div id="preview-container"></div>
 					</figure>

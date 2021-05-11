@@ -32,7 +32,7 @@ main {
 	min-height: 100%;
 }
 
-main > section {
+main>section {
 	padding: 1rem;
 }
 
@@ -64,7 +64,7 @@ h1 {
 	width: 100%;
 }
 
-#preview > * {
+#preview>* {
 	flex: 1;
 }
 
@@ -96,12 +96,12 @@ input[type="file"] {
 	gap: 0.5rem;
 }
 
-.range > input[type="range"] {
+.range>input[type="range"] {
 	flex: auto;
 	width: 100%;
 }
 
-.range > input[type="number"] {
+.range>input[type="number"] {
 	flex: none;
 	width: 0;
 	min-width: 4rem;
@@ -125,7 +125,7 @@ button {
 	min-width: 0;
 }
 
-details > summary {
+details>summary {
 	cursor: pointer;
 }
 
@@ -134,7 +134,7 @@ figure {
 	border: solid 1px #888;
 }
 
-figure > figcaption {
+figure>figcaption {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -145,14 +145,14 @@ figure > figcaption {
 	padding: 0.25rem;
 }
 
-figure > div {
+figure>div {
 	width: 100%;
 	height: 50vh;
 	height: calc(50vh - 2rem);
 	background-color: #888;
 }
 
-figure > div > img {
+figure>div>img {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
@@ -298,7 +298,7 @@ dialog nav button {
 		display: block;
 	}
 
-	figure > div {
+	figure>div {
 		height: unset;
 	}
 }
