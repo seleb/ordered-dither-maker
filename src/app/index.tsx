@@ -421,7 +421,7 @@ function App() {
 					<label htmlFor="brightness" title="brightness to apply before dither">
 						brightness:
 					</label>
-					<input id="brightness" type="range" min={-1} max={3} step={0.01} value={brightness} data-value={brightness} onInput={useRange(setBrightness)} />
+					<input id="brightness" type="range" min={0} max={2} step={0.01} value={brightness} data-value={brightness} onInput={useRange(setBrightness)} />
 
 					<label htmlFor="contrast" title="contrast to apply before dither">
 						contrast:
