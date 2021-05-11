@@ -1,3 +1,16 @@
+# [1.9.0](https://github.com/seleb/ordered-dither-maker/compare/v1.8.0...v1.9.0) (2021-05-11)
+
+
+### Bug Fixes
+
+* keyboard support on grid ([447654d](https://github.com/seleb/ordered-dither-maker/commit/447654dc9148067e66b9111a98199e930cff5fbd))
+
+
+### Features
+
+* update cover image + add cover gif ([41da7bd](https://github.com/seleb/ordered-dither-maker/commit/41da7bd759f6650a5db105c65811bfe37ffef8c2))
+* update icons ([3d46929](https://github.com/seleb/ordered-dither-maker/commit/3d46929d5714895e3c15403f51a35b12874e37a9))
+
 # [1.8.0](https://github.com/seleb/ordered-dither-maker/compare/v1.7.0...v1.8.0) (2021-05-11)
 
 
