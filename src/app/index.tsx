@@ -389,7 +389,7 @@ function App() {
 					<label htmlFor="posterize" title="level of posterization to apply before dither; higher values mean more colours in the final image">
 						steps:
 					</label>
-					<Range id="posterize" min={1} max={128} step={1} value={posterize} setValue={setPosterize} />
+					<Range id="posterize" min={1} max={32} step={1} value={posterize} setValue={setPosterize} />
 
 					<label htmlFor="scale" title="size of pixels in preview">
 						pixel scale:
