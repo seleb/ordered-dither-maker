@@ -3,8 +3,8 @@ import gcd from 'compute-gcd';
 import { saveAs } from 'file-saver';
 import Flickr from 'flickr-sdk';
 import 'preact';
-import { ComponentProps, render } from 'preact';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'preact/hooks';
+import { render } from 'preact';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useState } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 import pkg from '../../package.json';
 import { fragment } from './fragment';
@@ -85,7 +85,21 @@ function App() {
 	const [layers, setLayers] = useState(4);
 	const [width, setWidth] = useState(4);
 	const [height, setHeight] = useState(4);
-	const [dither, setDither] = useState(() => new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))));
+	const [dither, dispatch] = useReducer(
+		(state, action: { type: 'set'; payload: boolean[][][] } | { type: 'toggle'; payload: [number, number, number] }) => {
+			switch (action.type) {
+				case 'set':
+					return action.payload;
+				case 'toggle': {
+					const [layer, x, y] = action.payload;
+					const v = JSON.parse(JSON.stringify(state));
+					v[layer][y][x] = !v[layer][y][x];
+					return v;
+				}
+			}
+		},
+		new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))) as boolean[][][]
+	);
 	const [layer, setLayer] = useState(0);
 	const [posterize, setPosterize] = useState(1);
 	const [grayscale, setGrayscale] = useState(true);
@@ -93,6 +107,8 @@ function App() {
 	const [brightness, setBrightness] = useState(1);
 	const [scale, setScale] = useState(2);
 	const [about, setAbout] = useState(false);
+	const setDither = useCallback((payload: typeof dither) => dispatch({ type: 'set', payload }), [dispatch]);
+	const toggleValue = useCallback((x: number, y: number) => dispatch({ type: 'toggle', payload: [layer, x, y] }), [dispatch, layer]);
 	const closeAbout = useCallback(() => setAbout(false), []);
 	const openAbout = useCallback(() => setAbout(true), []);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
@@ -200,18 +216,6 @@ function App() {
 	const clear = useCallback(() => {
 		setDither(new Array(dither.length).fill(0).map(() => new Array(dither[0].length).fill(0).map(() => new Array(dither[0][0].length).fill(false))));
 	}, [dither]);
-
-	const toggleValue = useCallback<ComponentProps<typeof Grid>['toggleValue']>(
-		event => {
-			const target = event.currentTarget;
-			const x = parseInt(target.dataset.x || '0', 10);
-			const y = parseInt(target.dataset.y || '0', 10);
-			const v = JSON.parse(JSON.stringify(dither));
-			v[layer][y][x] = !v[layer][y][x];
-			setDither(v);
-		},
-		[dither, layer]
-	);
 
 	useLayoutEffect(() => {
 		// restrict layer to available layers
