@@ -1,3 +1,16 @@
+# [1.7.0](https://github.com/seleb/ordered-dither-maker/compare/v1.6.0...v1.7.0) (2021-05-11)
+
+
+### Bug Fixes
+
+* example images ([0d4ce94](https://github.com/seleb/ordered-dither-maker/commit/0d4ce9419004bd02c385bffd29a388a17e70c51a))
+* range number inputs too big ([83ed8df](https://github.com/seleb/ordered-dither-maker/commit/83ed8df56c0e1cff042663079d88281d454a7094))
+
+
+### Features
+
+* add power of 2 note to layers label ([0655e59](https://github.com/seleb/ordered-dither-maker/commit/0655e59bfa165ad6fbc671be58f5e1a87957684c))
+
 # [1.6.0](https://github.com/seleb/ordered-dither-maker/compare/v1.5.0...v1.6.0) (2021-05-11)
 
 
