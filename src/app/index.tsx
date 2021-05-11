@@ -302,7 +302,7 @@ function App() {
 			<main>
 				<section id="controls">
 					<h1 className="fill">{pkg.name}</h1>
-					<label htmlFor="source-file">import:</label>
+					<label htmlFor="source-file" title="import a previously-generated threshold map">import:</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
 					<details className="fill">
 						<summary>presets</summary>
@@ -340,13 +340,13 @@ function App() {
 
 					<hr />
 
-					<label htmlFor="layers">layers:</label>
+					<label htmlFor="layers" title="layers in generated texture">layers:</label>
 					<input id="layers" type="number" min={1} max={256} value={layers} onChange={useInt(setLayers)} />
 
-					<label htmlFor="width">width:</label>
+					<label htmlFor="width" title="width of generated texture">width:</label>
 					<input id="width" type="number" min={1} value={width} onChange={useInt(setWidth)} />
 
-					<label htmlFor="height">height:</label>
+					<label htmlFor="height" title="height of generated texture">height:</label>
 					<input id="height" type="number" min={1} value={height} onChange={useInt(setHeight)} />
 
 					<hr />
@@ -360,16 +360,16 @@ function App() {
 						required={required}
 						toggleValue={toggleValue}
 					/>
-					<label htmlFor="layer">layer:</label>
+					<label htmlFor="layer" title="layer to draw on (pixels filled due to layers underneath are shown grayed out)">layer:</label>
 					<Range id="layer" min={0} max={layers - 1} step={1} value={layer} setValue={setLayer} />
 
 					<hr />
 
 					<h2>preview options</h2>
 
-					<label htmlFor="preview-file">import:</label>
+					<label htmlFor="preview-file" title="import a custom preview image">import:</label>
 					<input disabled={loading} id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
-					<button disabled={loading} className="fill" onClick={getRandomPreview}>
+					<button title="load a random preview image" disabled={loading} className="fill" onClick={getRandomPreview}>
 						random
 					</button>
 
@@ -402,7 +402,7 @@ function App() {
 				<section id="preview">
 					<figure>
 						<figcaption>
-							output <button onClick={saveOutput}>save</button>
+							output <button title="save generated threshold map" onClick={saveOutput}>save</button>
 						</figcaption>
 						<div>
 							<img alt="Output image" id="output-img" src={srcOutput} />
@@ -411,7 +411,7 @@ function App() {
 
 					<figure id="preview-figure">
 						<figcaption>
-							preview <button onClick={savePreview}>save</button>
+							preview <button title="save current preview image with dither applied" onClick={savePreview}>save</button>
 						</figcaption>
 						<div id="preview-container"></div>
 					</figure>
