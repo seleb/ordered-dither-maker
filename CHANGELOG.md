@@ -1,3 +1,16 @@
+# [1.5.0](https://github.com/seleb/ordered-dither-maker/compare/v1.4.0...v1.5.0) (2021-05-11)
+
+
+### Bug Fixes
+
+* auto fit controls grid ([12664df](https://github.com/seleb/ordered-dither-maker/commit/12664df6b810660cf51f149ddb56c7b0c6ccd45f))
+* brightness range ([265fb37](https://github.com/seleb/ordered-dither-maker/commit/265fb373d96113582d6277fca10ac5b42e84970a))
+
+
+### Features
+
+* add number input next to sliders ([2b87794](https://github.com/seleb/ordered-dither-maker/commit/2b87794e3d01d3e72932c9e081850bd5ce9e7b9c))
+
 # [1.4.0](https://github.com/seleb/ordered-dither-maker/compare/v1.3.1...v1.4.0) (2021-05-11)
 
 
