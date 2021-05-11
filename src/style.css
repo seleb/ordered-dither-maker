@@ -45,7 +45,7 @@ h1 {
 
 #controls {
 	display: grid;
-	grid-template-columns: 0fr 1fr;
+	grid-template-columns: auto 1fr;
 	grid-gap: 0.25rem 1rem;
 	width: 100%;
 }
