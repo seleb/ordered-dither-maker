@@ -1,3 +1,22 @@
+# [1.8.0](https://github.com/seleb/ordered-dither-maker/compare/v1.7.0...v1.8.0) (2021-05-11)
+
+
+### Bug Fixes
+
+* add missing debug import ([2b16bdb](https://github.com/seleb/ordered-dither-maker/commit/2b16bdb3955f4bb89040ae9418e24beae71129af))
+* clearing inputs throwing errors ([f8646af](https://github.com/seleb/ordered-dither-maker/commit/f8646af8f3df5920628237ff2ce62a0ca78a4fa8))
+* reserve space for grid ([4efda9a](https://github.com/seleb/ordered-dither-maker/commit/4efda9add92cd30bd7447ce7882c80abe7d49d40))
+* strip profile of baked-in preview image ([72e4902](https://github.com/seleb/ordered-dither-maker/commit/72e4902621a7d7f441e415cb197988bba0811af3))
+* unnecessary re-renders ([9401ffc](https://github.com/seleb/ordered-dither-maker/commit/9401ffcfddf3ad018905cdcbac5b6b382577f979))
+
+
+### Features
+
+* add diagonals preset ([76d2577](https://github.com/seleb/ordered-dither-maker/commit/76d257753d8d2e84e2478976845033b3cc87d906))
+* better warn + explain powers of 2 layers ([7c71ee3](https://github.com/seleb/ordered-dither-maker/commit/7c71ee3b3eec533b5d57973e4a9de099752203ee))
+* click + drag to draw ([efe64c8](https://github.com/seleb/ordered-dither-maker/commit/efe64c849bcf6adaea7edbaee484da697b769ff9))
+* reduce posterization levels to a more useful range ([95a398f](https://github.com/seleb/ordered-dither-maker/commit/95a398f11b310a52cdd7fe5720b2f5b6cf06cf02))
+
 # [1.7.0](https://github.com/seleb/ordered-dither-maker/compare/v1.6.0...v1.7.0) (2021-05-11)
 
 
