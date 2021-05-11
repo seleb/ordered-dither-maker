@@ -135,15 +135,21 @@ function App() {
 
 	const onPreviewChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
+		setLoading(true);
+		setSrcPreview('');
 		const reader = new FileReader();
 		reader.onload = function () {
 			setSrcPreview(reader.result?.toString() ?? '');
+			setBrightness(1);
+			setContrast(1);
+			setLoading(false);
 		};
 		reader.readAsDataURL(event.currentTarget.files[0]);
 	}, []);
 
 	const getRandomPreview = useCallback(async () => {
 		setSrcPreview('');
+		setLoading(true);
 		try {
 			const {
 				body: {
@@ -169,9 +175,13 @@ function App() {
 			});
 			const { body } = await flickr.photos.getSizes({ photo_id: id });
 			setSrcPreview(body.sizes.size.filter((i, idx) => idx === 0 || i.width < previewCanvas.parentElement?.clientWidth).pop().source);
-		} catch(e) {
+			setBrightness(1);
+			setContrast(2);
+		} catch (e) {
 			console.error(e);
 			window.alert('Failed to load random image; see console for details');
+		} finally {
+			setLoading(false);
 		}
 	}, []);
 
@@ -221,7 +231,7 @@ function App() {
 	}, [dither]);
 
 	const toggleValue = useCallback<ComponentProps<typeof Grid>['toggleValue']>(
-		(event) => {
+		event => {
 			const target = event.currentTarget;
 			const x = parseInt(target.dataset.x || '0', 10);
 			const y = parseInt(target.dataset.y || '0', 10);
@@ -324,15 +334,38 @@ function App() {
 					<h1 className="fill">ordered-dither-maker</h1>
 					<label htmlFor="source-file">import:</label>
 					<input id="source-file" type="file" accept="image/*" onChange={onChange} />
-					<details className="fill"><summary>presets</summary>
-					<ul>
-						<li><button value={checker} onClick={preset}>checker</button></li>
-						<li><button value={bayer2} onClick={preset}>bayer2</button></li>
-						<li><button value={bayer4} onClick={preset}>bayer4</button></li>
-						<li><button value={bayer8} onClick={preset}>bayer8</button></li>
-						<li><button value={bayer16} onClick={preset}>bayer16</button></li>
-						<li><button onClick={clear}>clear</button></li>
-					</ul>
+					<details className="fill">
+						<summary>presets</summary>
+						<ul>
+							<li>
+								<button value={checker} onClick={preset}>
+									checker
+								</button>
+							</li>
+							<li>
+								<button value={bayer2} onClick={preset}>
+									bayer2
+								</button>
+							</li>
+							<li>
+								<button value={bayer4} onClick={preset}>
+									bayer4
+								</button>
+							</li>
+							<li>
+								<button value={bayer8} onClick={preset}>
+									bayer8
+								</button>
+							</li>
+							<li>
+								<button value={bayer16} onClick={preset}>
+									bayer16
+								</button>
+							</li>
+							<li>
+								<button onClick={clear}>clear</button>
+							</li>
+						</ul>
 					</details>
 
 					<hr />
@@ -359,21 +392,30 @@ function App() {
 					/>
 					<label htmlFor="layer">layer:</label>
 					<input id="layer" type="range" min={0} max={layers - 1} step={1} value={layer} data-value={layer + 1} onInput={useRange(setLayer)} />
-					
+
 					<hr />
 
 					<h2>preview options</h2>
 
 					<label htmlFor="preview-file">import:</label>
-					<input id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
-					
-					<label htmlFor="grayscale" title="whether to convert to grayscale before applying dither" >grayscale:</label>
+					<input disabled={loading} id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
+					<button disabled={loading} className="fill" onClick={getRandomPreview}>
+						random
+					</button>
+
+					<label htmlFor="grayscale" title="whether to convert to grayscale before applying dither">
+						grayscale:
+					</label>
 					<input id="grayscale" type="checkbox" checked={grayscale} onChange={useCheckbox(setGrayscale)} />
 
-					<label htmlFor="posterize" title="level of posterization to apply before dither; higher values mean more colours in the final image" >steps:</label>
+					<label htmlFor="posterize" title="level of posterization to apply before dither; higher values mean more colours in the final image">
+						steps:
+					</label>
 					<input id="posterize" type="range" min={1} max={128} step={1} value={posterize} data-value={posterize} onInput={useRange(setPosterize)} />
 
-					<label htmlFor="scale" title="size of pixels in preview" >pixel scale:</label>
+					<label htmlFor="scale" title="size of pixels in preview">
+						pixel scale:
+					</label>
 					<input id="scale" type="range" min={1} max={8} step={1} value={scale} data-value={scale} onInput={useRange(setScale)} />
 
 					<label htmlFor="brightness" title="brightness to apply before dither">
@@ -393,7 +435,7 @@ function App() {
 							output <button onClick={saveOutput}>save</button>
 						</figcaption>
 						<div>
-						<img alt="Output image" id="output-img" src={srcOutput} />
+							<img alt="Output image" id="output-img" src={srcOutput} />
 						</div>
 					</figure>
 
