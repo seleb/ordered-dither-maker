@@ -1,6 +1,7 @@
 import 'canvas-toBlob';
 import gcd from 'compute-gcd';
 import { saveAs } from 'file-saver';
+import Flickr from 'flickr-sdk';
 import 'preact';
 import { ComponentProps, render } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useState } from 'preact/hooks';
@@ -15,6 +16,10 @@ import bayer4 from './img/bayer4.png';
 import bayer8 from './img/bayer8.png';
 import checker from './img/checker2.png';
 import { useCheckbox, useInt, useRange } from './utils';
+
+const FLICKR_API_KEY = '306bf363cfbce3604dbbf827bd5f7398';
+
+const flickr = new Flickr(FLICKR_API_KEY);
 
 const inputCanvas = document.createElement('canvas');
 const inputCtx = inputCanvas.getContext('2d') as CanvasRenderingContext2D;
@@ -137,7 +142,40 @@ function App() {
 		reader.readAsDataURL(event.currentTarget.files[0]);
 	}, []);
 
-	const preset = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLButtonElement>['onClick']>>((event) => {
+	const getRandomPreview = useCallback(async () => {
+		setSrcPreview('');
+		try {
+			const {
+				body: {
+					photoset: { count_photos },
+				},
+			} = await flickr.photosets.getInfo({
+				photoset_id: '72157641858423503',
+				user_id: '12403504@N02',
+			});
+			const {
+				body: {
+					photoset: {
+						photo: [{ id }],
+					},
+				},
+			} = await flickr.photosets.getPhotos({
+				photoset_id: '72157641858423503',
+				user_id: '12403504@N02',
+				per_page: 1,
+				page: Math.floor(Math.random() * count_photos),
+				media: 'photos',
+				extra: 'url_m',
+			});
+			const { body } = await flickr.photos.getSizes({ photo_id: id });
+			setSrcPreview(body.sizes.size.filter((i, idx) => idx === 0 || i.width < previewCanvas.parentElement?.clientWidth).pop().source);
+		} catch(e) {
+			console.error(e);
+			window.alert('Failed to load random image; see console for details');
+		}
+	}, []);
+
+	const preset = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLButtonElement>['onClick']>>(event => {
 		setSrcInput(event.currentTarget.value);
 	}, []);
 
@@ -236,6 +274,7 @@ function App() {
 	// update preview texture
 	useEffect(() => {
 		const img = new Image();
+		img.crossOrigin = 'anonymous';
 		img.onerror = img.onload = () => {
 			texturePreview.source = img;
 			texturePreview.update();

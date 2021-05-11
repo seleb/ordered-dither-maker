@@ -26,6 +26,7 @@
     "canvas-toBlob": "^1.0.0",
     "compute-gcd": "^1.2.1",
     "file-saver": "^2.0.5",
+    "flickr-sdk": "^3.10.0",
     "preact": "^10.5.13",
     "reset-css": "^5.0.1"
   },
