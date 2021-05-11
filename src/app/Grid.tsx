@@ -1,6 +1,8 @@
 import { useCallback } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 
+let drawing: HTMLButtonElement | undefined;
+
 function getPos(button: HTMLButtonElement) {
 	return [parseInt(button.dataset.x || '0', 10), parseInt(button.dataset.y || '0', 10)] as const;
 }
@@ -15,6 +17,7 @@ export function Grid({
 		event => {
 			const target = event.currentTarget;
 			const targetValue = event.currentTarget.value === 'true' ? 'false' : 'true';
+			drawing = event.currentTarget;
 			toggleValue(...getPos(target));
 			function onMove(e: MouseEvent) {
 				if (!e.target?.ariaLabel?.startsWith('pixel x')) return;
@@ -30,11 +33,20 @@ export function Grid({
 		},
 		[toggleValue]
 	);
+	const onClick = useCallback<NonNullable<JSXInternal.HTMLAttributes<HTMLButtonElement>['onClick']>>(
+		event => {
+			const target = event.currentTarget;
+			if (drawing === target) return;
+			drawing = undefined;
+			toggleValue(...getPos(target));
+		},
+		[toggleValue]
+	);
 	return (
 		<div {...props} className="grid">
 			{value.map((row, y) =>
 				row.map((i, x) => (
-					<button aria-label={`pixel x: ${x}, y: ${y}`} data-x={x} data-y={y} disabled={required[y][x]} value={(required[y][x] || value[y][x]).toString()} onMouseDown={startDrawing} />
+					<button aria-label={`pixel x: ${x}, y: ${y}`} data-x={x} data-y={y} disabled={required[y][x]} value={(required[y][x] || value[y][x]).toString()} onMouseDown={startDrawing} onClick={onClick}/>
 				))
 			)}
 		</div>
