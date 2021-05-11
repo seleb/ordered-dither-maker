@@ -187,7 +187,6 @@ figure figcaption button {
 	display: grid;
 	width: 100%;
 	max-width: 50vh;
-	grid-gap: 1px;
 	background: #888;
 	border: solid 1px #888;
 }

@@ -355,6 +355,8 @@ function App() {
 						style={{
 							'grid-template-columns': `repeat(${width}, 1fr)`,
 							'grid-template-rows': `repeat(${height}, 1fr)`,
+							'grid-gap': Math.max(width, height) > 16 ? '0' : '1px',
+							'min-width': `${width*4+2}px`,
 						}}
 						value={dither[layer]}
 						required={required}
