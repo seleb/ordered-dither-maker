@@ -172,7 +172,7 @@ function App() {
 				const ignoredWarning = window.confirm('This image is larger than recommended, and may slow down your browser if you continue.');
 				if (!ignoredWarning) return;
 			}
-			inputCtx.drawImage(img, 0, 0, w, h);
+			inputCtx.drawImage(img, 0, 0);
 			const data = inputCtx.getImageData(0, 0, w, h);
 			let output: number[][] = new Array(h).fill(0).map(() => new Array(w).fill(0));
 			for (let y = 0; y < h; ++y) {
