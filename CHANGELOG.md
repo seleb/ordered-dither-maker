@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/seleb/ordered-dither-maker/compare/v1.9.0...v1.9.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* drag to draw not working in firefox ([58df389](https://github.com/seleb/ordered-dither-maker/commit/58df3894e7cc95e50fbf978e45cc3e408946e0f0))
+
 # [1.9.0](https://github.com/seleb/ordered-dither-maker/compare/v1.8.0...v1.9.0) (2021-05-11)
 
 
