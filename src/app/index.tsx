@@ -93,8 +93,8 @@ function App() {
 	const [brightness, setBrightness] = useState(1);
 	const [scale, setScale] = useState(2);
 	const [about, setAbout] = useState(false);
-	const closeAbout = useCallback(() => setAbout(false));
-	const openAbout = useCallback(() => setAbout(true));
+	const closeAbout = useCallback(() => setAbout(false), []);
+	const openAbout = useCallback(() => setAbout(true), []);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
 		if (!event.currentTarget?.files?.[0]) return;
 		const reader = new FileReader();
