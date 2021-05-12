@@ -14,6 +14,7 @@
   "license": "MIT",
   "repository": "github:seleb/ordered-dither-maker",
   "devDependencies": {
+    "@types/compute-gcd": "^1.2.0",
     "@types/file-saver": "^2.0.2",
     "autoprefixer": "^9.0.0",
     "parcel": "^1.12.4",
