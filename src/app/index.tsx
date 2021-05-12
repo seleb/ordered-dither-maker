@@ -155,7 +155,6 @@ function App() {
 				per_page: 1,
 				page: Math.floor(Math.random() * count_photos),
 				media: 'photos',
-				extra: 'url_m',
 			});
 			const { body } = await flickr.photos.getSizes({ photo_id: id });
 			setSrcPreview(body.sizes.size.filter((i, idx) => idx === 0 || i.width < previewCanvas.parentElement?.clientWidth).pop().source);
