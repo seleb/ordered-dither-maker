@@ -2,6 +2,7 @@ import 'canvas-toBlob';
 import gcd from 'compute-gcd';
 import { saveAs } from 'file-saver';
 import Flickr from 'flickr-sdk';
+import { getPixels } from 'just-give-me-the-pixels';
 import 'preact';
 import { render } from 'preact';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useState } from 'preact/hooks';
@@ -26,8 +27,6 @@ const FLICKR_API_KEY = '306bf363cfbce3604dbbf827bd5f7398';
 
 const flickr = new Flickr(FLICKR_API_KEY);
 
-const inputCanvas = document.createElement('canvas');
-const inputCtx = inputCanvas.getContext('2d') as CanvasRenderingContext2D;
 const outputCanvas = document.createElement('canvas');
 const outputCtx = outputCanvas.getContext('2d') as CanvasRenderingContext2D;
 const previewCanvas = document.createElement('canvas');
@@ -174,23 +173,18 @@ function App() {
 
 	useEffect(() => {
 		if (!srcInput) return;
-		const img = new Image();
-		img.onerror = img.onload = () => {
-			const w = img.naturalWidth;
-			const h = img.naturalHeight;
-			inputCanvas.width = w;
-			inputCanvas.height = h;
+		(async function() {
+			const { width: w, height: h, data } = await getPixels(srcInput);
 
 			if (w * h > 256) {
 				const ignoredWarning = window.confirm('This image is larger than recommended, and may slow down your browser if you continue.');
 				if (!ignoredWarning) return;
 			}
-			inputCtx.drawImage(img, 0, 0);
-			const data = inputCtx.getImageData(0, 0, w, h);
+
 			let output: number[][] = new Array(h).fill(0).map(() => new Array(w).fill(0));
 			for (let y = 0; y < h; ++y) {
 				for (let x = 0; x < w; ++x) {
-					output[y][x] = data.data[(x + y * w) * 4];
+					output[y][x] = data[(x + y * w) * 4];
 					if (output[y][x]) {
 						output[y][x] = output[y][x] + 1;
 					}
@@ -205,8 +199,7 @@ function App() {
 			setLayers(l);
 			setDither(new Array(l).fill(0).map((_, layer) => new Array(h).fill(0).map((_, y) => new Array(w).fill(0).map((_, x) => output[y][x] === layer + 1))));
 			setSrcInput('');
-		};
-		img.src = srcInput;
+		}())
 	}, [srcInput]);
 
 	const clear = useCallback(() => {
