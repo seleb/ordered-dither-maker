@@ -190,7 +190,7 @@ function App() {
 					}
 				}
 			}
-			const divisor = gcd([...new Set(output.flat()), 256]);
+			const divisor = gcd([...new Set(output.flat()), 256]) || 1;
 			output = output.map(row => row.map(i => i / divisor));
 			const l = 256 / divisor;
 			setLayer(0);
