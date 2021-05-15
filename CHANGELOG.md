@@ -1,3 +1,11 @@
+## [1.9.2](https://github.com/seleb/ordered-dither-maker/compare/v1.9.1...v1.9.2) (2021-05-15)
+
+
+### Bug Fixes
+
+* handle null divisor case ([6201efe](https://github.com/seleb/ordered-dither-maker/commit/6201efe713dd89475ba8a92ae32c9517c8615082))
+* replace image import with profile-independent module ([edbd613](https://github.com/seleb/ordered-dither-maker/commit/edbd6139ba2a82d4d93acc0ed4bc5e22c9e043fe))
+
 ## [1.9.1](https://github.com/seleb/ordered-dither-maker/compare/v1.9.0...v1.9.1) (2021-05-11)
 
 
