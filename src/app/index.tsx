@@ -309,6 +309,21 @@ function App() {
 		window.addEventListener('mouseup', onUp);
 		document.body.style.cursor = 'ns-resize';
 	}, []);
+
+	useEffect(() => {
+		function onKeyDown(event: KeyboardEvent) {
+			if (!(document.activeElement === document.body || document.querySelector('.grid')?.contains(document.activeElement))) return;
+			if (event.key === 'ArrowRight' && layer < layers-1) {
+				setLayer(layer + 1);
+			} else if (event.key === 'ArrowLeft' && layer > 0) {
+				setLayer(layer - 1);
+			}
+		}
+		window.addEventListener('keydown', onKeyDown);
+		return () => {
+			window.removeEventListener('keydown', onKeyDown);
+		};
+	}, [layer, layers]);
 	return (
 		<>
 			<main>
