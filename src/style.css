@@ -307,7 +307,15 @@ dialog nav button {
 		display: block;
 	}
 
-	figure>div {
+	#preview {
 		height: unset;
+		flex-direction: column-reverse;
+	}
+	#preview > figure {
+		flex: none;
+	}
+
+	#preview hr {
+		display: none;
 	}
 }
