@@ -293,16 +293,18 @@ function App() {
 	}, [brightness]);
 
 	const [size, setSize] = useState(0.5);
-	const startResize = useCallback((event) => {
+	const startResize = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLHRElement>['onMouseDown']>>(event => {
 		const container = event.currentTarget.parentElement;
-		function onMove(e) {
-			setSize((e.clientY - 16 * 1.25) / (container.clientHeight - 16 * 2.5));
+		function onMove(e: MouseEvent) {
+			if (container) {
+				setSize((e.clientY - 16 * 1.25) / (container.clientHeight - 16 * 2.5));
+			}
 		}
 		function onUp() {
 			window.removeEventListener('mousemove', onMove);
 			window.removeEventListener('mouseup', onUp);
 			document.body.style.cursor = '';
-	}
+		}
 		window.addEventListener('mousemove', onMove);
 		window.addEventListener('mouseup', onUp);
 		document.body.style.cursor = 'ns-resize';
