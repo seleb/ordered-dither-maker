@@ -326,6 +326,13 @@ function App() {
 			window.removeEventListener('keydown', onKeyDown);
 		};
 	}, [layer, layers]);
+	// unfocus buttons when changing layers so focus can't get stuck on disabled button
+	useEffect(() => {
+		const el = document.activeElement;
+		if (el?.tagName === 'BUTTON') {
+			(el as HTMLButtonElement).blur();
+		}
+	}, [layer]);
 	return (
 		<>
 			<main>
