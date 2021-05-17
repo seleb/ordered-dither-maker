@@ -8,6 +8,7 @@ html {
 	color: var(--black);
 	font-family: 'Courier New', Courier, monospace;
 	height: 100%;
+	user-select: none;
 }
 
 * {
