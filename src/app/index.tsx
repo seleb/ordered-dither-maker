@@ -331,6 +331,11 @@ function App() {
 			<main>
 				<section id="controls">
 					<h1 className="fill">{pkg.name}</h1>
+
+					<hr />
+
+					<h2>threshold map options</h2>
+
 					<label htmlFor="source-file" title="import a previously-generated threshold map">
 						import:
 					</label>
