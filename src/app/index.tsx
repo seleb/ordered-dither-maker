@@ -499,6 +499,11 @@ function App() {
 						</a>
 						).
 					</p>
+					<p>Tips:</p>
+					<ul>
+						<li>Drag the bar between the output and preview sections to resize</li>
+						<li>Use <kbd>ArrowLeft</kbd> and <kbd>ArrowRight</kbd> to change the current layer while drawing</li>
+					</ul>
 					<p>
 						Randomized preview images sourced from a{' '}
 						<a href="https://www.flickr.com/photos/britishlibrary/albums/72157641858423503" target="_blank" rel="noopener noreferrer">

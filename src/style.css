@@ -262,6 +262,11 @@ dialog a:active {
 	opacity: 1.0;
 }
 
+dialog ul {
+	list-style: initial;
+	margin-inline-start: 1rem;
+}
+
 dialog::backdrop,
 dialog+.backdrop {
 	background-color: rgba(0, 0, 0, 0.8);
@@ -287,6 +292,13 @@ dialog nav {
 dialog nav button {
 	margin-inline-start: auto;
 	width: auto;
+}
+
+kbd {
+	display: inline-block;
+	border-radius: 0.25rem;
+	padding: 0.25rem;
+	border: solid 1px var(--black);
 }
 
 @media (prefers-color-scheme: dark) {
