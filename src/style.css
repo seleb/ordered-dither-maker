@@ -61,12 +61,12 @@ h1 {
 	min-width: 0;
 	display: flex;
 	flex-direction: column;
-	gap: 0.5rem;
 	width: 100%;
+	height: 100vh;
 }
 
-#preview>* {
-	flex: 1;
+#preview>figure {
+	min-height: 2.5rem;
 }
 
 hr {
@@ -75,6 +75,13 @@ hr {
 	margin: 0;
 	border: 0;
 	border-top: solid 1px #BBB;
+}
+
+#preview>hr {
+	flex: none;
+	height: 0.5rem;
+	border: none;
+	cursor: ns-resize;
 }
 
 label {
@@ -148,15 +155,16 @@ figure>figcaption {
 
 figure>div {
 	width: 100%;
-	height: 50vh;
-	height: calc(50vh - 2rem);
+	height: 100%;
 	background-color: #888;
+	display: flex;
 }
 
 figure>div>img {
 	width: 100%;
 	height: 100%;
 	object-fit: contain;
+	margin: auto;
 }
 
 canvas,

@@ -291,6 +291,22 @@ function App() {
 		gl.uniform1f(glLocations.brightness, brightness);
 		renderOutput();
 	}, [brightness]);
+
+	const [size, setSize] = useState(0.5);
+	const startResize = useCallback((event) => {
+		const container = event.currentTarget.parentElement;
+		function onMove(e) {
+			setSize((e.clientY - 16 * 1.25) / (container.clientHeight - 16 * 2.5));
+		}
+		function onUp() {
+			window.removeEventListener('mousemove', onMove);
+			window.removeEventListener('mouseup', onUp);
+			document.body.style.cursor = '';
+	}
+		window.addEventListener('mousemove', onMove);
+		window.addEventListener('mouseup', onUp);
+		document.body.style.cursor = 'ns-resize';
+	}, []);
 	return (
 		<>
 			<main>
@@ -413,7 +429,7 @@ function App() {
 				</section>
 
 				<section id="preview">
-					<figure>
+					<figure style={{ flex: size }}>
 						<figcaption>
 							output{' '}
 							<button title="save generated threshold map" onClick={saveOutput}>
@@ -421,11 +437,11 @@ function App() {
 							</button>
 						</figcaption>
 						<div>
-							<img alt="Output image" id="output-img" src={srcOutput} />
+							<img draggable={false} alt="Output image" id="output-img" src={srcOutput} />
 						</div>
 					</figure>
-
-					<figure id="preview-figure">
+					<hr onMouseDown={startResize} />
+					<figure style={{ flex: (1.0 - size) }} id="preview-figure">
 						<figcaption>
 							preview{' '}
 							<button title="save current preview image with dither applied" onClick={savePreview}>
