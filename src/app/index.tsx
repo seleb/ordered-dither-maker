@@ -297,6 +297,7 @@ function App() {
 		const container = event.currentTarget.parentElement;
 		function onMove(e: MouseEvent) {
 			if (container) {
+				// size is percentage, taking into account fixed padding/hr height
 				setSize((e.clientY - 16 * 1.25) / (container.clientHeight - 16 * 2.5));
 			}
 		}
@@ -310,6 +311,7 @@ function App() {
 		document.body.style.cursor = 'ns-resize';
 	}, []);
 
+	// change layer with right/left arrow keys
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent) {
 			if (!(document.activeElement === document.body || document.querySelector('.grid')?.contains(document.activeElement))) return;
