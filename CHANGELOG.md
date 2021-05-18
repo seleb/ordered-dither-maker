@@ -1,3 +1,20 @@
+# [1.10.0](https://github.com/seleb/ordered-dither-maker/compare/v1.9.2...v1.10.0) (2021-05-18)
+
+
+### Bug Fixes
+
+* disable user-select ([39afe84](https://github.com/seleb/ordered-dither-maker/commit/39afe84467c6257aa6774727e10e21e3bed89717))
+* focus issue when changing layers ([0a69d8a](https://github.com/seleb/ordered-dither-maker/commit/0a69d8ae4728b3a309e2b2cb82be3f60f50ae5de))
+
+
+### Features
+
+* add arrow keyboard shortcuts for changing layer ([880ec8a](https://github.com/seleb/ordered-dither-maker/commit/880ec8aedc7f3f3ad73aa5734b76b2c3a4275ad2))
+* add header for threshold map options ([2262ff5](https://github.com/seleb/ordered-dither-maker/commit/2262ff575c421ead3add254017bbb23c20ed06ac))
+* add tips ([93ed864](https://github.com/seleb/ordered-dither-maker/commit/93ed8646eb38448632657ec8e31a55b325031d70))
+* resize output/preview sections by dragging bar between them ([901e479](https://github.com/seleb/ordered-dither-maker/commit/901e4798ebd2676bc56977eb099784ad8e536206))
+* reverse output/preview order in mobile ([30910dc](https://github.com/seleb/ordered-dither-maker/commit/30910dc9cb41b97ee7384b958991851d18a80c2c))
+
 ## [1.9.2](https://github.com/seleb/ordered-dither-maker/compare/v1.9.1...v1.9.2) (2021-05-15)
 
 
