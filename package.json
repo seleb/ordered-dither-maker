@@ -27,6 +27,7 @@
     "canvas-toBlob": "^1.0.0",
     "compute-gcd": "^1.2.1",
     "dialog-polyfill": "^0.5.6",
+    "draw-1-bit": "^1.0.3",
     "file-saver": "^2.0.5",
     "flickr-sdk": "^3.10.0",
     "just-give-me-the-pixels": "^1.0.3",

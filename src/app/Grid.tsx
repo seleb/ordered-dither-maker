@@ -1,54 +1,69 @@
-import { useCallback } from 'preact/hooks';
+import Draw1Bit from 'draw-1-bit';
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
-
-let drawing: HTMLButtonElement | undefined;
-
-function getPos(button: HTMLButtonElement) {
-	return [parseInt(button.dataset.x || '0', 10), parseInt(button.dataset.y || '0', 10)] as const;
-}
 
 export function Grid({
 	value,
-	required,
-	toggleValue,
+	locked,
+	immediate,
+	setAll,
+	setOne,
 	...props
-}: Omit<JSXInternal.HTMLAttributes<HTMLDivElement>, 'value' | 'required'> & { value: boolean[][]; required: boolean[][]; toggleValue: (x: number, y: number) => void }) {
-	const startDrawing = useCallback<NonNullable<JSXInternal.HTMLAttributes<HTMLButtonElement>['onClick']>>(
-		event => {
-			const target = event.currentTarget;
-			const targetValue = event.currentTarget.value === 'true' ? 'false' : 'true';
-			drawing = event.currentTarget;
-			toggleValue(...getPos(target));
-			function onMove(e: MouseEvent) {
-				if (e.target?.dataset?.pixel === undefined) return;
-				if (e.target.value === targetValue) return;
-				toggleValue(...getPos(e.target));
+}: Omit<JSXInternal.HTMLAttributes<HTMLDivElement>, 'value' | 'locked'> & {
+	value: boolean[][];
+	locked: boolean[][];
+	immediate: boolean;
+	setAll: (value: boolean[][]) => void;
+	setOne: (x: number, y: number, value: boolean) => void;
+}) {
+	const [width, height] = useMemo(() => [value[0].length, value.length], [value]);
+	const drawRef = useRef<Draw1Bit>();
+	useLayoutEffect(() => {
+		drawRef.current = new Draw1Bit({ width: 0, height: 0 });
+	}, [drawRef]);
+	const ref = useRef<HTMLDivElement>();
+	useEffect(() => {
+		if (immediate) {
+			function onInput(event: CustomEvent<{ x: number; y: number; value: boolean }>) {
+				setOne(event.detail.x, event.detail.y, event.detail.value);
 			}
-			function onUp() {
-				window.removeEventListener('mousemove', onMove);
-				window.removeEventListener('mouseup', onUp);
-			}
-			window.addEventListener('mousemove', onMove);
-			window.addEventListener('mouseup', onUp);
-		},
-		[toggleValue]
-	);
-	const onClick = useCallback<NonNullable<JSXInternal.HTMLAttributes<HTMLButtonElement>['onClick']>>(
-		event => {
-			const target = event.currentTarget;
-			if (drawing === target) return;
-			drawing = undefined;
-			toggleValue(...getPos(target));
-		},
-		[toggleValue]
-	);
-	return (
-		<div {...props} className="grid">
-			{value.map((row, y) =>
-				row.map((i, x) => (
-					<button data-pixel aria-label={`pixel x: ${x}, y: ${y}`} data-x={x} data-y={y} disabled={required[y][x]} value={(required[y][x] || value[y][x]).toString()} onMouseDown={startDrawing} onClick={onClick}/>
-				))
-			)}
-		</div>
-	);
+			drawRef.current.addEventListener('draw', onInput);
+			return () => {
+				drawRef.current.removeEventListener('draw', onInput);
+			};
+		}
+		function onEnd() {
+			setAll(new Array(height).fill(0).map((_, y) => new Array(width).fill(0).map((_, x) => drawRef.current.fill(x, y))));
+		}
+		drawRef.current.addEventListener('drawend', onEnd);
+		return () => {
+			drawRef.current.removeEventListener('drawend', onEnd);
+		};
+	}, [immediate, setOne, setAll]);
+	useLayoutEffect(() => {
+		const el = ref.current;
+		if (!el) return;
+		el.appendChild(drawRef.current.canvas);
+	}, [ref]);
+	useLayoutEffect(() => {
+		drawRef.current.resize(width, height);
+		drawRef.current.render();
+	}, [width, height]);
+	useLayoutEffect(() => {
+		value.forEach((row, y) => {
+			row.forEach((filled, x) => {
+				drawRef.current.fill(x, y, filled);
+			});
+		});
+		drawRef.current.render();
+	}, [value]);
+	useLayoutEffect(() => {
+		locked.forEach((row, y) => {
+			row.forEach((locked, x) => {
+				drawRef.current.lock(x, y, locked);
+			});
+		});
+		drawRef.current.render();
+	}, [locked]);
+	return <div {...props} className="grid" ref={ref} />;
 }

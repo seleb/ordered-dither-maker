@@ -24,6 +24,8 @@ import { useCheckbox, useInt } from './utils';
 import { vertex } from './vertex';
 
 const FLICKR_API_KEY = '306bf363cfbce3604dbbf827bd5f7398';
+const PX_WARN = 512;
+const PX_IMMEDIATE = 1024;
 
 const flickr = new Flickr(FLICKR_API_KEY);
 
@@ -78,24 +80,32 @@ function savePreview() {
 
 function App() {
 	const [srcInput, setSrcInput] = useState(bayer4);
-	const [srcOutput, setSrcOutput] = useState('');
 	const [srcPreview, setSrcPreview] = useState(sampleImage);
 	const [loading, setLoading] = useState(false);
 	const [layers, setLayers] = useState(4);
 	const [width, setWidth] = useState(4);
 	const [height, setHeight] = useState(4);
-	const [dither, dispatch] = useReducer((state, action: { type: 'set'; payload: boolean[][][] } | { type: 'toggle'; payload: [number, number, number] }) => {
-		switch (action.type) {
-			case 'set':
-				return action.payload;
-			case 'toggle': {
-				const [layer, x, y] = action.payload;
-				const v = JSON.parse(JSON.stringify(state));
-				v[layer][y][x] = !v[layer][y][x];
-				return v;
+	const [dither, dispatch] = useReducer(
+		(state, action: { type: 'set'; payload: boolean[][][] } | { type: 'set-layer'; payload: [number, boolean[][]] } | { type: 'set-pixel'; payload: [number, number, number, boolean] }) => {
+			switch (action.type) {
+				case 'set':
+					return action.payload;
+				case 'set-layer': {
+					const [layer, value] = action.payload;
+					const v = JSON.parse(JSON.stringify(state));
+					v[layer] = value;
+					return v;
+				}
+				case 'set-pixel': {
+					const [layer, x, y, value] = action.payload;
+					const v = JSON.parse(JSON.stringify(state));
+					v[layer][y][x] = value;
+					return v;
+				}
 			}
-		}
-	}, new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))) as boolean[][][]);
+		},
+		new Array(layers).fill(0).map(() => new Array(height).fill(0).map(() => new Array(width).fill(false))) as boolean[][][]
+	);
 	const [layer, setLayer] = useState(0);
 	const [posterize, setPosterize] = useState(1);
 	const [grayscale, setGrayscale] = useState(true);
@@ -104,7 +114,8 @@ function App() {
 	const [scale, setScale] = useState(2);
 	const [about, setAbout] = useState(false);
 	const setDither = useCallback((payload: typeof dither) => dispatch({ type: 'set', payload }), [dispatch]);
-	const toggleValue = useCallback((x: number, y: number) => dispatch({ type: 'toggle', payload: [layer, x, y] }), [dispatch, layer]);
+	const setDitherLayer = useCallback((value: boolean[][]) => dispatch({ type: 'set-layer', payload: [layer, value] }), [dispatch, layer]);
+	const setDitherPixel = useCallback((x: number, y: number, value: boolean) => dispatch({ type: 'set-pixel', payload: [layer, x, y, value] }), [dispatch, layer]);
 	const closeAbout = useCallback(() => setAbout(false), []);
 	const openAbout = useCallback(() => setAbout(true), []);
 	const onChange = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLInputElement>['onChange']>>(event => {
@@ -173,10 +184,10 @@ function App() {
 
 	useEffect(() => {
 		if (!srcInput) return;
-		(async function() {
+		(async function () {
 			const { width: w, height: h, data } = await getPixels(srcInput);
 
-			if (w * h > 256) {
+			if (w * h > PX_WARN) {
 				const ignoredWarning = window.confirm('This image is larger than recommended, and may slow down your browser if you continue.');
 				if (!ignoredWarning) return;
 			}
@@ -199,7 +210,7 @@ function App() {
 			setLayers(l);
 			setDither(new Array(l).fill(0).map((_, layer) => new Array(h).fill(0).map((_, y) => new Array(w).fill(0).map((_, x) => output[y][x] === layer + 1))));
 			setSrcInput('');
-		}())
+		})();
 	}, [srcInput]);
 
 	const clear = useCallback(() => {
@@ -215,10 +226,10 @@ function App() {
 	}, [width, height, layers]);
 
 	// make a map of which spaces are required due to state of layers underneath
-	const required = useMemo(() => new Array(dither[0].length).fill(0).map((_, y) => new Array(dither[0][0].length).fill(0).map((_, x) => dither.slice(0, layer).some(grid => grid[y][x]))), [
-		dither,
-		layer,
-	]);
+	const required = useMemo(
+		() => new Array(dither[0].length).fill(0).map((_, y) => new Array(dither[0][0].length).fill(0).map((_, x) => dither.slice(0, layer).some(grid => grid[y][x]))),
+		[dither, layer]
+	);
 
 	// convert dither state to texture
 	useEffect(() => {
@@ -236,7 +247,6 @@ function App() {
 				outputCtx.fillRect(x, y, 1, 1);
 			}
 		}
-		setSrcOutput(outputCanvas.toDataURL());
 
 		textureDither.source = outputCanvas;
 		textureDither.update();
@@ -262,9 +272,10 @@ function App() {
 		img.src = srcPreview;
 	}, [srcPreview]);
 
-	// put preview canvas in document
+	// put preview and output canvas in document
 	useEffect(() => {
 		document.querySelector('#preview-container')?.appendChild(previewCanvas);
+		document.querySelector('#output-container')?.appendChild(outputCanvas);
 	}, []);
 	// update posterization level
 	useEffect(() => {
@@ -315,7 +326,7 @@ function App() {
 	useEffect(() => {
 		function onKeyDown(event: KeyboardEvent) {
 			if (!(document.activeElement === document.body || document.querySelector('.grid')?.contains(document.activeElement))) return;
-			if (event.key === 'ArrowRight' && layer < layers-1) {
+			if (event.key === 'ArrowRight' && layer < layers - 1) {
 				setLayer(layer + 1);
 			} else if (event.key === 'ArrowLeft' && layer > 0) {
 				setLayer(layer - 1);
@@ -326,13 +337,6 @@ function App() {
 			window.removeEventListener('keydown', onKeyDown);
 		};
 	}, [layer, layers]);
-	// unfocus buttons when changing layers so focus can't get stuck on disabled button
-	useEffect(() => {
-		const el = document.activeElement;
-		if (el?.tagName === 'BUTTON') {
-			(el as HTMLButtonElement).blur();
-		}
-	}, [layer]);
 	return (
 		<>
 			<main>
@@ -405,17 +409,7 @@ function App() {
 
 					<hr />
 
-					<Grid
-						style={{
-							'grid-template-columns': `repeat(${width}, 1fr)`,
-							'grid-template-rows': `repeat(${height}, 1fr)`,
-							'grid-gap': Math.max(width, height) > 16 ? '0' : '1px',
-							'min-width': `${width * 4 + 2}px`,
-						}}
-						value={dither[layer]}
-						required={required}
-						toggleValue={toggleValue}
-					/>
+					<Grid immediate={width * height < PX_IMMEDIATE} value={dither[layer]} locked={required} setAll={setDitherLayer} setOne={setDitherPixel} />
 					<label htmlFor="layer" title="layer to draw on (pixels filled due to layers underneath are shown grayed out)">
 						layer:
 					</label>
@@ -467,12 +461,10 @@ function App() {
 								save
 							</button>
 						</figcaption>
-						<div>
-							<img draggable={false} alt="Output image" id="output-img" src={srcOutput} />
-						</div>
+						<div id="output-container" />
 					</figure>
 					<hr onMouseDown={startResize} />
-					<figure style={{ flex: (1.0 - size) }} id="preview-figure">
+					<figure style={{ flex: 1.0 - size }} id="preview-figure">
 						<figcaption>
 							preview{' '}
 							<button title="save current preview image with dither applied" onClick={savePreview}>
@@ -509,7 +501,9 @@ function App() {
 					<p>Tips:</p>
 					<ul>
 						<li>Drag the bar between the output and preview sections to resize</li>
-						<li>Use <kbd>ArrowLeft</kbd> and <kbd>ArrowRight</kbd> to change the current layer while drawing</li>
+						<li>
+							Use <kbd>ArrowLeft</kbd> and <kbd>ArrowRight</kbd> to change the current layer while drawing
+						</li>
 					</ul>
 					<p>
 						Randomized preview images sourced from a{' '}
