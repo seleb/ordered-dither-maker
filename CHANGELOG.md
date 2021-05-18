@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/seleb/ordered-dither-maker/compare/v1.10.0...v1.11.0) (2021-05-18)
+
+
+### Features
+
+* optimize drawing grid ([72eeeb7](https://github.com/seleb/ordered-dither-maker/commit/72eeeb7fa9d6b89b131ea4378ada485052ccc86b))
+
 # [1.10.0](https://github.com/seleb/ordered-dither-maker/compare/v1.9.2...v1.10.0) (2021-05-18)
 
 
