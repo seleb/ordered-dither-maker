@@ -39,7 +39,7 @@ export function Grid({
 		return () => {
 			drawRef.current.removeEventListener('drawend', onEnd);
 		};
-	}, [immediate, setOne, setAll]);
+	}, [width, height, immediate, setOne, setAll]);
 	useLayoutEffect(() => {
 		const el = ref.current;
 		if (!el) return;
