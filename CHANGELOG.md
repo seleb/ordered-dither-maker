@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/seleb/ordered-dither-maker/compare/v1.11.0...v1.11.1) (2021-05-22)
+
+
+### Bug Fixes
+
+* non-immediate update using incorrect width/height ([fe0209b](https://github.com/seleb/ordered-dither-maker/commit/fe0209b3ce399ba82d2a9b1cf4873e8c0e4eb682))
+
 # [1.11.0](https://github.com/seleb/ordered-dither-maker/compare/v1.10.0...v1.11.0) (2021-05-18)
 
 
