@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/seleb/ordered-dither-maker/compare/v1.11.1...v1.12.0) (2021-05-22)
+
+
+### Features
+
+* improved drawing canvas ([1c128ac](https://github.com/seleb/ordered-dither-maker/commit/1c128ac3cdfecade0807c0fc18cdcc279cb3b1ea))
+
 ## [1.11.1](https://github.com/seleb/ordered-dither-maker/compare/v1.11.0...v1.11.1) (2021-05-22)
 
 
