@@ -1,3 +1,11 @@
+## [1.12.1](https://github.com/seleb/ordered-dither-maker/compare/v1.12.0...v1.12.1) (2021-05-23)
+
+
+### Bug Fixes
+
+* add missing `step` to threshold map dimensions ([5802857](https://github.com/seleb/ordered-dither-maker/commit/5802857a890d4d0dcf0e77dfe34c0adcf7559c2e))
+* better sanitization of inputs ([51d989e](https://github.com/seleb/ordered-dither-maker/commit/51d989e21fe95b78faf466a26286afc85640c59b))
+
 # [1.12.0](https://github.com/seleb/ordered-dither-maker/compare/v1.11.1...v1.12.0) (2021-05-22)
 
 
