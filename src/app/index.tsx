@@ -395,17 +395,17 @@ function App() {
 					<label htmlFor="layers" title="layers in generated texture (non-powers of 2 will expand to 256 on reimport)">
 						{Math.log2(layers) % 1 !== 0 && '(!) '} layers:
 					</label>
-					<input id="layers" type="number" min={1} max={256} value={layers} onChange={useInt(setLayers)} />
+					<input id="layers" type="number" min={1} max={256} step={1} value={layers} onChange={useInt(setLayers)} />
 
 					<label htmlFor="width" title="width of generated texture">
 						width:
 					</label>
-					<input id="width" type="number" min={1} value={width} onChange={useInt(setWidth)} />
+					<input id="width" type="number" min={1} step={1} value={width} onChange={useInt(setWidth)} />
 
 					<label htmlFor="height" title="height of generated texture">
 						height:
 					</label>
-					<input id="height" type="number" min={1} value={height} onChange={useInt(setHeight)} />
+					<input id="height" type="number" min={1} step={1} value={height} onChange={useInt(setHeight)} />
 
 					<hr />
 
