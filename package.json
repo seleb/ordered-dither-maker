@@ -1,6 +1,6 @@
 {
   "name": "ordered-dither-maker",
-  "version": "1.12.1",
+  "version": "1.12.2",
   "description": "tool for creating ordered dither threshold textures",
   "scripts": {
     "start": "parcel index.html",

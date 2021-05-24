@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/seleb/ordered-dither-maker/compare/v1.12.1...v1.12.2) (2021-05-24)
+
+
+### Bug Fixes
+
+* issue with hover not appearing on drawing grid ([4ab6205](https://github.com/seleb/ordered-dither-maker/commit/4ab62051bf24bb8ea944f973a7170e74dcc2b86c))
+
 ## [1.12.1](https://github.com/seleb/ordered-dither-maker/compare/v1.12.0...v1.12.1) (2021-05-23)
 
 
