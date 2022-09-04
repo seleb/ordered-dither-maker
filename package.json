@@ -29,7 +29,7 @@
     "dialog-polyfill": "^0.5.6",
     "draw-1-bit": "^1.1.1",
     "file-saver": "^2.0.5",
-    "flickr-sdk": "^3.10.0",
+    "flickr-sdk": "^6.0.0",
     "just-give-me-the-pixels": "^1.0.3",
     "preact": "^10.10.6",
     "reset-css": "^5.0.1"
