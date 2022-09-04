@@ -1,3 +1,16 @@
+## [1.12.3](https://github.com/seleb/ordered-dither-maker/compare/v1.12.2...v1.12.3) (2022-09-04)
+
+
+### Bug Fixes
+
+* `npm audit fix` ([44acf1e](https://github.com/seleb/ordered-dither-maker/commit/44acf1ecc644df17d0bcaf226d5fafbb82eed09c))
+* build script ([0b91e4d](https://github.com/seleb/ordered-dither-maker/commit/0b91e4d10a59f810a54d9020965ec1b7f640ec22))
+* preview images getting stretched on firefox ([89e5eb2](https://github.com/seleb/ordered-dither-maker/commit/89e5eb2ba7f936f6eb8de1ca316ada681a8aa063))
+* reuse preview texture ([a509b71](https://github.com/seleb/ordered-dither-maker/commit/a509b717bdca7fad814216bb0cf4c2ec5c2d211b))
+* update `flickr-sdk` ([3570272](https://github.com/seleb/ordered-dither-maker/commit/35702725b3e94478403a58a176ef95a9a868220e))
+* update dependencies ([58a33ac](https://github.com/seleb/ordered-dither-maker/commit/58a33ac6dc0d6af9d2c88a9105841cbc0bdc269a))
+* update parcel ([5756969](https://github.com/seleb/ordered-dither-maker/commit/57569693663913227f4c84c2417cdc981cb86117))
+
 ## [1.12.2](https://github.com/seleb/ordered-dither-maker/compare/v1.12.1...v1.12.2) (2021-05-24)
 
 
