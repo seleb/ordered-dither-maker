@@ -1,3 +1,10 @@
+## [1.12.6](https://github.com/seleb/ordered-dither-maker/compare/v1.12.5...v1.12.6) (2022-09-04)
+
+
+### Bug Fixes
+
+* butler push ([5e8042f](https://github.com/seleb/ordered-dither-maker/commit/5e8042fb0262cfcc6ac6124fde51a38a3ff7b9f8))
+
 ## [1.12.5](https://github.com/seleb/ordered-dither-maker/compare/v1.12.4...v1.12.5) (2022-09-04)
 
 
