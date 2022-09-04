@@ -257,7 +257,7 @@ function App() {
 
 	// update preview texture
 	useEffect(() => {
-		const img = new Image();
+		const img = texturePreview.source;
 		img.crossOrigin = 'anonymous';
 		img.onerror = img.onload = () => {
 			texturePreview.source = img;
