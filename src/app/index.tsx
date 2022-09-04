@@ -188,7 +188,7 @@ function App() {
 			const { width: w, height: h, data } = await getPixels(srcInput);
 
 			if (w * h > PX_WARN) {
-				const ignoredWarning = window.confirm('This image is larger than recommended, and may slow down your browser if you continue.');
+				const ignoredWarning = window.confirm('This image is larger than recommended, and may slow down your browser if you continue.\n\nAre you sure this is a dither texture and not a preview image? Preview images should be uploaded in the second "import" field below.');
 				if (!ignoredWarning) return;
 			}
 
