@@ -269,7 +269,7 @@ function App() {
 			gl.uniform2f(glLocations.resolution, previewCanvas.width, previewCanvas.height);
 			renderOutput();
 		};
-		img.src = srcPreview;
+		img.src = srcPreview || 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
 	}, [srcPreview]);
 
 	// put preview and output canvas in document
