@@ -1,3 +1,10 @@
+## [1.12.4](https://github.com/seleb/ordered-dither-maker/compare/v1.12.3...v1.12.4) (2022-09-04)
+
+
+### Bug Fixes
+
+* remove old browserlistrc ([16cbc07](https://github.com/seleb/ordered-dither-maker/commit/16cbc0781592cc365c7d80262e8bddcc3de028dc))
+
 ## [1.12.3](https://github.com/seleb/ordered-dither-maker/compare/v1.12.2...v1.12.3) (2022-09-04)
 
 
