@@ -1,3 +1,10 @@
+## [1.12.5](https://github.com/seleb/ordered-dither-maker/compare/v1.12.4...v1.12.5) (2022-09-04)
+
+
+### Bug Fixes
+
+* add note about incorrect field to large dither texture confirmation ([0403004](https://github.com/seleb/ordered-dither-maker/commit/04030044e05e3f4a03d4d4b5b2ef447a8e0abd47))
+
 ## [1.12.4](https://github.com/seleb/ordered-dither-maker/compare/v1.12.3...v1.12.4) (2022-09-04)
 
 
