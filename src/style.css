@@ -63,6 +63,7 @@ h1 {
 	flex-direction: column;
 	width: 100%;
 	height: 100vh;
+	touch-action: none;
 }
 
 #preview>figure {
@@ -360,7 +361,8 @@ kbd {
 	}
 
 	input,
-	details > summary {
+	details > summary,
+	#preview hr {
 		padding-block: 0.5rem;
 	}
 }

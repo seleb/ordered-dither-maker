@@ -304,7 +304,7 @@ function App() {
 	}, [brightness]);
 
 	const [size, setSize] = useState(0.5);
-	const startResize = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLHRElement>['onMouseDown']>>(event => {
+	const startResize = useCallback<NonNullable<JSXInternal.DOMAttributes<HTMLHRElement>['onPointerDown']>>(event => {
 		const container = event.currentTarget.parentElement;
 		function onMove(e: MouseEvent) {
 			if (container) {
@@ -313,12 +313,12 @@ function App() {
 			}
 		}
 		function onUp() {
-			window.removeEventListener('mousemove', onMove);
-			window.removeEventListener('mouseup', onUp);
+			window.removeEventListener('pointermove', onMove);
+			window.removeEventListener('pointerup', onUp);
 			document.body.style.cursor = '';
 		}
-		window.addEventListener('mousemove', onMove);
-		window.addEventListener('mouseup', onUp);
+		window.addEventListener('pointermove', onMove);
+		window.addEventListener('pointerup', onUp);
 		document.body.style.cursor = 'ns-resize';
 	}, []);
 
@@ -467,7 +467,7 @@ function App() {
 						</figcaption>
 						<div id="output-container" />
 					</figure>
-					<hr onMouseDown={startResize} />
+					<hr onPointerDown={startResize} />
 					<figure style={{ flex: 1.0 - size }} id="preview-figure">
 						<figcaption>
 							preview{' '}
