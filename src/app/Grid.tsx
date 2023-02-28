@@ -21,7 +21,7 @@ export function Grid({
 	useLayoutEffect(() => {
 		drawRef.current = new Draw1Bit({ width: 0, height: 0 });
 	}, [drawRef]);
-	const ref = useRef<HTMLDivElement>();
+	const ref = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		if (immediate) {
 			function onInput(event: CustomEvent<{ x: number; y: number; value: boolean }>) {

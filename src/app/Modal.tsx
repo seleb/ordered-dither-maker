@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'preact/hooks';
 import { JSXInternal } from 'preact/src/jsx';
 
 export function Modal({ children, close, ...props }: JSXInternal.HTMLAttributes<HTMLDialogElement> & { close: () => void }) {
-	const ref = useRef<HTMLDialogElement>();
+	const ref = useRef<HTMLDialogElement>(null);
 	useEffect(() => {
 		const dialog = ref.current;
 		if (!dialog) return;
