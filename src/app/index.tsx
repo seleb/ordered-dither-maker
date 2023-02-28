@@ -359,37 +359,37 @@ function App() {
 						<summary>presets</summary>
 						<ul>
 							<li>
-								<button value={checker} onClick={preset}>
+								<button type="button" value={checker} onClick={preset}>
 									checker
 								</button>
 							</li>
 							<li>
-								<button value={diagonals} onClick={preset}>
+								<button type="button" value={diagonals} onClick={preset}>
 									diagonals
 								</button>
 							</li>
 							<li>
-								<button value={bayer2} onClick={preset}>
+								<button type="button" value={bayer2} onClick={preset}>
 									bayer2
 								</button>
 							</li>
 							<li>
-								<button value={bayer4} onClick={preset}>
+								<button type="button" value={bayer4} onClick={preset}>
 									bayer4
 								</button>
 							</li>
 							<li>
-								<button value={bayer8} onClick={preset}>
+								<button type="button" value={bayer8} onClick={preset}>
 									bayer8
 								</button>
 							</li>
 							<li>
-								<button value={bayer16} onClick={preset}>
+								<button type="button" value={bayer16} onClick={preset}>
 									bayer16
 								</button>
 							</li>
 							<li>
-								<button onClick={clear}>clear</button>
+								<button type="button" onClick={clear}>clear</button>
 							</li>
 						</ul>
 					</details>
@@ -427,7 +427,7 @@ function App() {
 						import:
 					</label>
 					<input disabled={loading} id="preview-file" type="file" accept="image/*" onChange={onPreviewChange} />
-					<button title="load a random preview image" disabled={loading} className="fill" onClick={getRandomPreview}>
+					<button type="button" title="load a random preview image" disabled={loading} className="fill" onClick={getRandomPreview}>
 						random
 					</button>
 
@@ -461,7 +461,7 @@ function App() {
 					<figure style={{ flex: size }}>
 						<figcaption>
 							output{' '}
-							<button title="save generated threshold map" onClick={saveOutput}>
+							<button type="button" title="save generated threshold map" onClick={saveOutput}>
 								save
 							</button>
 						</figcaption>
@@ -471,7 +471,7 @@ function App() {
 					<figure style={{ flex: 1.0 - size }} id="preview-figure">
 						<figcaption>
 							preview{' '}
-							<button title="save current preview image with dither applied" onClick={savePreview}>
+							<button type="button" title="save current preview image with dither applied" onClick={savePreview}>
 								save
 							</button>
 						</figcaption>
@@ -480,8 +480,8 @@ function App() {
 				</section>
 			</main>
 			<footer>
-				<button id="toggle-theme" type="button" onClick={toggleTheme} title="Toggle theme">Toggle theme</button>
-				<button onClick={openAbout}>about</button>
+				<button type="button" id="toggle-theme" onClick={toggleTheme} title="Toggle theme">Toggle theme</button>
+				<button type="button" onClick={openAbout}>about</button>
 			</footer>
 			{about && (
 				<Modal close={closeAbout}>
@@ -518,7 +518,7 @@ function App() {
 						of public domain works.
 					</p>
 					<nav>
-						<button onClick={closeAbout}>close</button>
+						<button type="button" onClick={closeAbout}>close</button>
 					</nav>
 				</Modal>
 			)}
