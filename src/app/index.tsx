@@ -337,6 +337,10 @@ function App() {
 			window.removeEventListener('keydown', onKeyDown);
 		};
 	}, [layer, layers]);
+	const toggleTheme = useCallback(() => {
+		const theme = document.documentElement.dataset.theme || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+		document.documentElement.dataset.theme = theme === 'dark' ? 'light' : 'dark';
+	}, []);
 	return (
 		<>
 			<main>
@@ -476,6 +480,7 @@ function App() {
 				</section>
 			</main>
 			<footer>
+				<button id="toggle-theme" type="button" onClick={toggleTheme} title="Toggle theme">Toggle theme</button>
 				<button onClick={openAbout}>about</button>
 			</footer>
 			{about && (

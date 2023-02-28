@@ -220,7 +220,12 @@ footer {
 	bottom: 0.25rem;
 	right: 1rem;
 	font-size: 75%;
-	text-align: right;
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+footer > * {
+	width: auto;
 }
 
 dialog {
@@ -294,11 +299,34 @@ kbd {
 	border: solid 1px var(--black);
 }
 
+#toggle-theme {
+	font-size: 0;
+	color: transparent;
+	width: auto;
+	margin-inline-end: 0.5rem;
+}
+#toggle-theme::after {
+	content: '🔆';
+	font-size: 1rem;
+	color: initial;
+}
+
+:root[data-theme="dark"] {
+	color-scheme: dark;
+	--white: #000;
+	--black: #FFF;
+}
+:root[data-theme="dark"] #toggle-theme::after {
+	content: '🌙';
+}
 @media (prefers-color-scheme: dark) {
-	:root {
+	:root:not([data-theme]) {
 		color-scheme: dark;
 		--white: #000;
 		--black: #FFF;
+	}
+	:root:not([data-theme]) #toggle-theme::after {
+		content: '🌙';
 	}
 }
 
