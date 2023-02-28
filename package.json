@@ -21,22 +21,22 @@
     "react/jsx-runtime": "preact/jsx-runtime"
   },
   "devDependencies": {
-    "@parcel/packager-raw-url": "^2.7.0",
-    "@parcel/transformer-jsonld": "^2.7.0",
-    "@parcel/transformer-webmanifest": "^2.7.0",
+    "@parcel/packager-raw-url": "^2.8.3",
+    "@parcel/transformer-jsonld": "^2.8.3",
+    "@parcel/transformer-webmanifest": "^2.8.3",
     "@types/compute-gcd": "^1.2.0",
     "@types/file-saver": "^2.0.5",
     "assert": "^2.0.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
-    "parcel": "^2.7.0",
+    "parcel": "^2.8.3",
     "process": "^0.11.10",
     "querystring-es3": "^0.2.1",
     "stream-browserify": "^3.0.0",
     "timers-browserify": "^2.0.12",
-    "typescript": "^4.8.2",
-    "util": "^0.12.4",
+    "typescript": "^4.9.5",
+    "util": "^0.12.5",
     "workbox-cli": "^6.5.4"
   },
   "dependencies": {
@@ -47,7 +47,7 @@
     "file-saver": "^2.0.5",
     "flickr-sdk": "^6.0.0",
     "just-give-me-the-pixels": "^1.0.3",
-    "preact": "^10.10.6",
+    "preact": "^10.13.0",
     "reset-css": "^5.0.1"
   },
   "release": {
