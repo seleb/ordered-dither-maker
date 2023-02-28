@@ -1,3 +1,22 @@
+# [1.13.0](https://github.com/seleb/ordered-dither-maker/compare/v1.12.6...v1.13.0) (2023-02-28)
+
+
+### Bug Fixes
+
+* audit dependencies ([5a0050c](https://github.com/seleb/ordered-dither-maker/commit/5a0050c0f7216a3151bc6bb6ee52c08bee0a98ee))
+* missing button types ([0f05454](https://github.com/seleb/ordered-dither-maker/commit/0f05454dec69bd754ab1b95d0abb011c40374bf1))
+* only apply touch action to draggable region ([01de4cd](https://github.com/seleb/ordered-dither-maker/commit/01de4cd33838dc8eaabe64276102feaabe3ae43d))
+* preview area not being resizable on touch device ([cf9b47f](https://github.com/seleb/ordered-dither-maker/commit/cf9b47fd8c1b09bb0715d2b2f86e40851c6d22c0))
+* type safety ([21f41d6](https://github.com/seleb/ordered-dither-maker/commit/21f41d6e59c5e3ae6ea936f9330185ccad03cda5))
+* update dependencies ([8ad5a59](https://github.com/seleb/ordered-dither-maker/commit/8ad5a59f86e41b8b342afddd5bd47924d2c024d1))
+
+
+### Features
+
+* add original image link to random previews ([0165877](https://github.com/seleb/ordered-dither-maker/commit/01658779624659fcef781c4d4e21b864c6f33905))
+* add theme toggle ([d7d8b92](https://github.com/seleb/ordered-dither-maker/commit/d7d8b92e3061dfc3db791bf4fe5290f93f057d96))
+* bigger buttons on mobile ([a0a2cf9](https://github.com/seleb/ordered-dither-maker/commit/a0a2cf9fefe8549d333b1aa60eb545a9fcaea094))
+
 ## [1.12.6](https://github.com/seleb/ordered-dither-maker/compare/v1.12.5...v1.12.6) (2022-09-04)
 
 
