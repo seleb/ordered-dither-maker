@@ -353,3 +353,14 @@ kbd {
 		display: none;
 	}
 }
+
+@media (pointer: coarse) {
+	button {
+		padding: 0.5rem;
+	}
+
+	input,
+	details > summary {
+		padding-block: 0.5rem;
+	}
+}
