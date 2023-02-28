@@ -81,6 +81,7 @@ function savePreview() {
 function App() {
 	const [srcInput, setSrcInput] = useState(bayer4);
 	const [srcPreview, setSrcPreview] = useState(sampleImage);
+	const [urlPreview, setUrlPreview] = useState(sampleImage);
 	const [loading, setLoading] = useState(false);
 	const [layers, setLayers] = useState(4);
 	const [width, setWidth] = useState(4);
@@ -131,6 +132,7 @@ function App() {
 		if (!event.currentTarget?.files?.[0]) return;
 		setLoading(true);
 		setSrcPreview('');
+		setUrlPreview('');
 		const reader = new FileReader();
 		reader.onload = function () {
 			setSrcPreview(reader.result?.toString() ?? '');
@@ -143,6 +145,7 @@ function App() {
 
 	const getRandomPreview = useCallback(async () => {
 		setSrcPreview('');
+		setUrlPreview('');
 		setLoading(true);
 		try {
 			const {
@@ -170,6 +173,7 @@ function App() {
 			setSrcPreview(body.sizes.size.filter((i, idx) => idx === 0 || i.width < previewCanvas.parentElement?.clientWidth).pop().source);
 			setBrightness(1);
 			setContrast(2);
+			setUrlPreview(`https://flickr.com/photos/britishlibrary/${id}`);
 		} catch (e) {
 			console.error(e);
 			window.alert('Failed to load random image; see console for details');
@@ -473,7 +477,8 @@ function App() {
 							preview{' '}
 							<button type="button" title="save current preview image with dither applied" onClick={savePreview}>
 								save
-							</button>
+							</button>{' '}
+							{urlPreview && <a href={urlPreview} target="_blank" rel="noopener noreferrer" title="Original" aria-label="Original">🔍</a>}
 						</figcaption>
 						<div id="preview-container"></div>
 					</figure>

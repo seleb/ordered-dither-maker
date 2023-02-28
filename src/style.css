@@ -153,6 +153,9 @@ figure>figcaption {
 	border-left: 0;
 	padding: 0.25rem;
 }
+figure>figcaption>a:not(:hover) {
+	text-decoration: none;
+}
 
 figure>div {
 	width: 100%;
