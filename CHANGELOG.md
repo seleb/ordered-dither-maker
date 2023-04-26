@@ -1,3 +1,13 @@
+## [1.13.1](https://github.com/seleb/ordered-dither-maker/compare/v1.13.0...v1.13.1) (2023-04-26)
+
+
+### Bug Fixes
+
+* update `flickr-sdk` ([0091f31](https://github.com/seleb/ordered-dither-maker/commit/0091f31962812ef2f8ae06c18f5cdad4aa176983))
+* update `preact` ([9f4fd11](https://github.com/seleb/ordered-dither-maker/commit/9f4fd11840c84c456318844def58900feb99af0a))
+* update `typescript` ([51b168b](https://github.com/seleb/ordered-dither-maker/commit/51b168bdac8fbca9ced454a582c2e331cdf4b510))
+* update browserslist ([e953730](https://github.com/seleb/ordered-dither-maker/commit/e95373067e32c9b9a598bab0f1cb7b1ebbbada28))
+
 # [1.13.0](https://github.com/seleb/ordered-dither-maker/compare/v1.12.6...v1.13.0) (2023-02-28)
 
 
