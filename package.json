@@ -48,7 +48,7 @@
     "file-saver": "^2.0.5",
     "flickr-sdk": "^6.2.0",
     "just-give-me-the-pixels": "^1.0.3",
-    "preact": "^10.13.0",
+    "preact": "^10.13.2",
     "reset-css": "^5.0.1"
   },
   "release": {
