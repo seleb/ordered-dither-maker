@@ -38,7 +38,7 @@
     "timers-browserify": "^2.0.12",
     "typescript": "^5.2.2",
     "util": "^0.12.5",
-    "workbox-cli": "^6.5.4"
+    "workbox-cli": "^7.0.0"
   },
   "dependencies": {
     "canvas-toBlob": "^1.0.0",
