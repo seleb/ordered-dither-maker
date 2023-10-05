@@ -1,3 +1,10 @@
+## [1.13.2](https://github.com/seleb/ordered-dither-maker/compare/v1.13.1...v1.13.2) (2023-10-05)
+
+
+### Bug Fixes
+
+* workaround for `user-agent` bug preventing random images from loading ([105f647](https://github.com/seleb/ordered-dither-maker/commit/105f647f89332c90d85c6ace32ca6451594f8ad5))
+
 ## [1.13.1](https://github.com/seleb/ordered-dither-maker/compare/v1.13.0...v1.13.1) (2023-04-26)
 
 
