@@ -26,7 +26,7 @@
     "@parcel/transformer-webmanifest": "^2.9.3",
     "@types/compute-gcd": "^1.2.0",
     "@types/file-saver": "^2.0.5",
-    "assert": "^2.0.0",
+    "assert": "^2.1.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
     "events": "^3.3.0",
