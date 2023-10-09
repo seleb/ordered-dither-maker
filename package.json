@@ -8,8 +8,7 @@
     "build:cleanup": "rm -rf .parcel-cache && rm -rf docs",
     "build:parcel": "parcel build index.html --dist-dir docs --no-source-maps --public-url ./",
     "build:sw": "workbox generateSW",
-    "postversion": "npm run build",
-    "postinstall": "sed -i '/user-agent/d' node_modules/flickr-sdk/lib/request.js"
+    "postversion": "npm run build"
   },
   "author": "Sean S. LeBlanc <sean.s.leblanc@gmail.com>",
   "license": "MIT",
@@ -47,7 +46,7 @@
     "dialog-polyfill": "^0.5.6",
     "draw-1-bit": "^1.1.1",
     "file-saver": "^2.0.5",
-    "flickr-sdk": "^6.2.1",
+    "flickr-sdk": "^6.3.0",
     "just-give-me-the-pixels": "^1.0.3",
     "preact": "^10.18.1",
     "reset-css": "^5.0.2"
