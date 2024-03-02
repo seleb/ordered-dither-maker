@@ -1,3 +1,10 @@
+## [1.13.3](https://github.com/seleb/ordered-dither-maker/compare/v1.13.2...v1.13.3) (2024-03-02)
+
+
+### Bug Fixes
+
+* footer blocking pointer events on UI ([21ba819](https://github.com/seleb/ordered-dither-maker/commit/21ba819133991f28d23a9da1d2a7622b3aa3a812))
+
 ## [1.13.2](https://github.com/seleb/ordered-dither-maker/compare/v1.13.1...v1.13.2) (2023-10-05)
 
 
