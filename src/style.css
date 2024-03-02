@@ -230,8 +230,10 @@ footer {
 	width: 100%;
 	display: flex;
 	justify-content: flex-end;
+	pointer-events: none;
 }
 footer > * {
+	pointer-events: auto;
 	width: auto;
 }
 
