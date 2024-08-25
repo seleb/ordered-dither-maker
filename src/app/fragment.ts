@@ -7,6 +7,7 @@ uniform vec2 ditherSize;
 uniform float scale;
 uniform float posterize;
 uniform float grayscale;
+uniform float invert;
 uniform float contrast;
 uniform float brightness;
 void main() {
@@ -18,7 +19,8 @@ void main() {
 	vec3 limit = texture2D(texDither, uvDither).rgb;
 
 	// posterization
-	vec3 raw = grayscale < 0.5 ? col : vec3(dot(col.rgb, vec3(0.299, 0.587, 0.114)));
+	vec3 raw0 = grayscale < 0.5 ? col : vec3(dot(col.rgb, vec3(0.299, 0.587, 0.114)));
+	vec3 raw = invert < 0.5 ? raw0 : vec3(1.0 - raw0);
 	vec3 posterized = raw - mod(raw, 1.0/posterize);
 
 	// dithering

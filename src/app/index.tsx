@@ -52,6 +52,7 @@ const glLocations = {
 	scale: gl.getUniformLocation(shader.program, 'scale'),
 	posterize: gl.getUniformLocation(shader.program, 'posterize'),
 	grayscale: gl.getUniformLocation(shader.program, 'grayscale'),
+	invert: gl.getUniformLocation(shader.program, 'invert'),
 	contrast: gl.getUniformLocation(shader.program, 'contrast'),
 	brightness: gl.getUniformLocation(shader.program, 'brightness'),
 };
@@ -110,6 +111,7 @@ function App() {
 	const [layer, setLayer] = useState(0);
 	const [posterize, setPosterize] = useState(1);
 	const [grayscale, setGrayscale] = useState(true);
+	const [invert, setInvert] = useState(false);
 	const [contrast, setContrast] = useState(1);
 	const [brightness, setBrightness] = useState(1);
 	const [scale, setScale] = useState(2);
@@ -291,6 +293,11 @@ function App() {
 		gl.uniform1f(glLocations.grayscale, grayscale ? 1.0 : 0.0);
 		renderOutput();
 	}, [grayscale]);
+	// update invert
+	useEffect(() => {
+		gl.uniform1f(glLocations.invert, invert ? 1.0 : 0.0);
+		renderOutput();
+	}, [invert]);
 	// update scale
 	useEffect(() => {
 		gl.uniform1f(glLocations.scale, scale);
@@ -439,6 +446,11 @@ function App() {
 						grayscale:
 					</label>
 					<input id="grayscale" type="checkbox" checked={grayscale} onChange={useCheckbox(setGrayscale)} />
+
+					<label htmlFor="invert" title="whether to invert before applying dither">
+						invert:
+					</label>
+					<input id="invert" type="checkbox" checked={invert} onChange={useCheckbox(setInvert)} />
 
 					<label htmlFor="posterize" title="level of posterization to apply before dither; higher values mean more colours in the final image">
 						steps:
