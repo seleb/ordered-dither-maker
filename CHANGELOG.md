@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/seleb/ordered-dither-maker/compare/v1.13.3...v1.14.0) (2024-08-25)
+
+
+### Features
+
+* add invert option ([#1](https://github.com/seleb/ordered-dither-maker/issues/1)) ([7950a37](https://github.com/seleb/ordered-dither-maker/commit/7950a375bc8c8427fde22bf24b4065fd5a7babf3))
+
 ## [1.13.3](https://github.com/seleb/ordered-dither-maker/compare/v1.13.2...v1.13.3) (2024-03-02)
 
 
